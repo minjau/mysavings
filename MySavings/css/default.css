@@ -1,7 +1,7 @@
 ﻿#contenthost {
     height: 100%;
     width: 100%;
-    background: url("../images/treemoney.jpg") repeat scroll 0 0 #F3F3F3;
+    background: #FFF url("../images/treemoney.jpg") no-repeat right bottom;
     color: #000;
 }
 
