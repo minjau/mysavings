@@ -186,7 +186,7 @@
         _itemInvoked: function (args) {
             if (appView.value === appViewState.snapped) {
                 // If the page is snapped, the user invoked a group.
-                var group = Data.groups.getAt(args.detail.itemIndex);
+                var group = Db.groupedBudgets.getAt(args.detail.itemIndex);
                 this.navigateToGroup(group.key);
             } else {
                 // If the page is not snapped, the user invoked an item.
