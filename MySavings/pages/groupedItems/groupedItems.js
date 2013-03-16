@@ -55,6 +55,7 @@
         },
         
         listViewSelectionChanged: function () {
+            self.closeBudgetPopup();
             var item = self.getSelectedItem();
             if (!item) {
                 return;
@@ -120,6 +121,9 @@
                     amount: budgetAmount.value
                 });
             }
+            
+            var listView = document.querySelector(".groupeditemslist").winControl;
+            listView.selection.clear();
         },
         
         clearData: function() {
@@ -135,6 +139,7 @@
                 return;
             }
             Db.deleteBudget(item.key);
+            appbar.winControl.hide();
         },
 
         closeBudgetPopup: function () {
