@@ -5,7 +5,8 @@
     var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
     var nav = WinJS.Navigation;
     var ui = WinJS.UI;
-    
+    var self;
+
     ui.Pages.define("/pages/groupedItems/groupedItems.html", {
         // Navigates to the groupHeaderPage. Called from the groupHeaders,
         // keyboard shortcut and iteminvoked.
@@ -16,6 +17,7 @@
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
+            self = this;
             var listView = element.querySelector(".groupeditemslist").winControl;
             listView.groupHeaderTemplate = element.querySelector(".headertemplate");
             listView.itemTemplate = element.querySelector(".itemtemplate");
@@ -35,14 +37,41 @@
             this._initializeLayout(listView, appView.value);
             listView.element.focus();
 
-            listView.onselectionchanged = this.showAppBar;
+            listView.onselectionchanged = this.listViewSelectionChanged;
             newButton.addEventListener("click", this.showPopup, false);
+            editButton.addEventListener("click", this.showPopup, false);
+            deleteButton.addEventListener("click", this.deleteBudget, false);
             saveBudget.addEventListener("click", this.saveBudget, false);
             closeBudgetPopup.addEventListener("click", this.closeBudgetPopup, false);
+            
+            appbar.winControl.addEventListener("beforeshow", function (e) {
+                e.preventDefault();
+                self.beforeShowAppBar();
+            });
         },
         
-        showAppBar: function () {
+        listViewSelectionChanged: function () {
+            var listView = document.querySelector(".groupeditemslist").winControl;
+            var item = listView.itemDataSource.list.getAt(listView.selection.getIndices()[0]);
+            if (!item) {
+                return;
+            }
+
             appbar.winControl.show();
+        },
+        
+        beforeShowAppBar: function () {
+            var listView = document.querySelector(".groupeditemslist").winControl;
+            var selectedItems = listView.selection.getIndices();
+            if (selectedItems.length > 0) {
+                appbar.winControl.hideCommands(newButton.winControl, true);
+                appbar.winControl.showCommands(editButton.winControl, true);
+                appbar.winControl.showCommands(deleteButton.winControl, true);
+            } else {
+                appbar.winControl.showCommands(newButton.winControl, true);
+                appbar.winControl.hideCommands(editButton.winControl, true);
+                appbar.winControl.hideCommands(deleteButton.winControl, true);
+            }
         },
 
         showPopup: function () {
@@ -54,7 +83,6 @@
             budgetEditPopupUI.style.opacity = "1";
             WinJS.UI.Animation.showPopup(budgetEditPopupUI, { top: "12px", left: "0px", rtlflip: true }).done(function() {
                 budgetEditPopupUI.setActive();
-                //budgetDateFrom.winControl.current = "";
             });
         },
         
@@ -70,6 +98,15 @@
             });
         },
         
+        deleteBudget : function() {
+            Db.delete({
+                title: budgetName.value,
+                dateFrom: budgetDateFrom.winControl.current,
+                dateTo: budgetDateTo.winControl.current,
+                amount: budgetAmount.value
+            });
+        },
+
         closeBudgetPopup: function () {
             WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
             budgetEditPopupUI.style.display = 'none';
@@ -96,7 +133,6 @@
         // This function updates the ListView with new layouts
         _initializeLayout: function (listView, viewState) {
             /// <param name="listView" value="WinJS.UI.ListView.prototype" />
-
             if (viewState === appViewState.snapped) {
                 listView.itemDataSource = Data.groups.dataSource;
                 listView.groupDataSource = null;
