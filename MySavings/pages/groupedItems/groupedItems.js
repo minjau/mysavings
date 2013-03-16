@@ -38,8 +38,12 @@
             listView.element.focus();
 
             listView.onselectionchanged = this.listViewSelectionChanged;
-            newButton.addEventListener("click", this.showPopup, false);
-            editButton.addEventListener("click", this.showPopup, false);
+            newButton.addEventListener("click", function() {
+                self.showPopup(false);
+            }, false);
+            editButton.addEventListener("click", function() {
+                self.showPopup(true);
+            }, false);
             deleteButton.addEventListener("click", this.deleteBudget, false);
             saveBudget.addEventListener("click", this.saveBudget, false);
             closeBudgetPopup.addEventListener("click", this.closeBudgetPopup, false);
@@ -51,8 +55,8 @@
         },
         
         listViewSelectionChanged: function () {
-            var listView = document.querySelector(".groupeditemslist").winControl;
-            var item = listView.itemDataSource.list.getAt(listView.selection.getIndices()[0]);
+            self.closeBudgetPopup();
+            var item = self.getSelectedItem();
             if (!item) {
                 return;
             }
@@ -74,13 +78,23 @@
             }
         },
 
-        showPopup: function () {
+        showPopup: function (prefilData) {
+            self.clearData();
+            
             budgetEditPopupUI.style.display = '';
             var offsetX = window.outerWidth / 2 - (budgetEditPopupUI.clientWidth / 2);
             var offsetY = window.outerHeight / 2 - (budgetEditPopupUI.clientHeight / 2);
             budgetEditPopupUI.style.pixelLeft = offsetX;
             budgetEditPopupUI.style.pixelTop = offsetY;
             budgetEditPopupUI.style.opacity = "1";
+            if (prefilData) {
+                var item = self.getSelectedItem();
+                budgetName.value = item.title;
+                budgetDateFrom.winControl.current = new Date(item.dateFrom);
+                budgetDateTo.winControl.current = new Date(item.dateTo);
+                budgetAmount.value = item.amount;
+            }
+
             WinJS.UI.Animation.showPopup(budgetEditPopupUI, { top: "12px", left: "0px", rtlflip: true }).done(function() {
                 budgetEditPopupUI.setActive();
             });
@@ -90,21 +104,42 @@
             WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
             budgetEditPopupUI.style.opacity = 0;
             budgetEditPopupUI.style.display = 'none';
-            Db.createBudget({
-                title: budgetName.value,
-                dateFrom: budgetDateFrom.winControl.current,
-                dateTo: budgetDateTo.winControl.current,
-                amount: budgetAmount.value
-            });
+            var selectedItem = self.getSelectedItem();
+            if (selectedItem) {
+                Db.updateBudget({
+                    key: selectedItem.key,
+                    title: budgetName.value,
+                    dateFrom: budgetDateFrom.winControl.current,
+                    dateTo: budgetDateTo.winControl.current,
+                    amount: budgetAmount.value
+                });
+            } else {
+                Db.createBudget({
+                    title: budgetName.value,
+                    dateFrom: budgetDateFrom.winControl.current,
+                    dateTo: budgetDateTo.winControl.current,
+                    amount: budgetAmount.value
+                });
+            }
+            
+            var listView = document.querySelector(".groupeditemslist").winControl;
+            listView.selection.clear();
         },
         
+        clearData: function() {
+            budgetName.value = "";
+            budgetDateFrom.winControl.current = new Date(2000, 0, 1);
+            budgetDateTo.winControl.current = new Date(2000, 0, 1);
+            budgetAmount.value = "";
+        },
+
         deleteBudget: function () {
-            var listView = document.querySelector(".groupeditemslist").winControl;
-            var item = listView.itemDataSource.list.getAt(listView.selection.getIndices()[0]);
+            var item = self.getSelectedItem();
             if (!item) {
                 return;
             }
             Db.deleteBudget(item.key);
+            appbar.winControl.hide();
         },
 
         closeBudgetPopup: function () {
@@ -113,6 +148,15 @@
             budgetEditPopupUI.style.opacity = 0;
         },
         
+        getSelectedItem: function() {
+            var listView = document.querySelector(".groupeditemslist").winControl;
+            var item = Db.groupedBudgets.getAt(listView.selection.getIndices()[0]);
+            if (!item) {
+                return null;
+            }
+
+            return item;
+        },
             // This function updates the page layout in response to viewState changes.
         updateLayout: function (element, viewState, lastViewState) {
             /// <param name="element" domElement="true" />
@@ -147,12 +191,12 @@
         _itemInvoked: function (args) {
             if (appView.value === appViewState.snapped) {
                 // If the page is snapped, the user invoked a group.
-                var group = Data.groups.getAt(args.detail.itemIndex);
+                var group = Db.groupedBudgets.getAt(args.detail.itemIndex);
                 this.navigateToGroup(group.key);
             } else {
                 // If the page is not snapped, the user invoked an item.
                 var item = Db.groupedBudgets.getAt(args.detail.itemIndex);
-                nav.navigate("/pages/itemDetail/itemDetail.html", { item: [item.key, item.title] });
+                nav.navigate("/pages/itemDetail/itemDetail.html", { key: item.key });
             }
         }
     });

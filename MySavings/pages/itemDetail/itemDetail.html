@@ -28,13 +28,32 @@
                 <div>
                     <header>
                         <h2 class="item-title"></h2>
-                        <h4 class="item-subtitle"></h4>
                     </header>
-                    <img class="item-image" src="#" />
-                    <div class="item-content"></div>
+                    <div class="item-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                   <th>col1</th>
+                                   <th>col2</th>
+                                </tr>
+                            </thead>     
+                            <tbody id="myTableBody">
+                            </tbody>
+                        </table>                        
+                    </div>
                 </div>
             </article>
         </div>
     </div>
+    
+    <table >
+        <tbody id="myTemplate" data-win-control="WinJS.Binding.Template">
+            <tr >
+                <td data-win-bind="innerText: name"></td>
+                <td data-win-bind="innerText: amount"></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

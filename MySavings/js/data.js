@@ -19,6 +19,7 @@
     WinJS.Namespace.define("Db", {
         groupedBudgets: groupedBudgets,
         budgetsInTheGroups: groupedBudgets.groups,
+        getBudget: getBudget,
         createBudget: createBudget,
         updateBudget: updateBudget,
         deleteBudget: deleteBudget,
@@ -26,8 +27,13 @@
         load: load
     });
 
+    function getBudget(key) {
+        var index = indexOfBudgetByKey(key);
+        return db.budgets.getAt(index);
+    }
+    
     function createBudget(value) {
-        var budget = {
+        var budget = WinJS.Binding.as({
             key: guid(),
             year: value.dateFrom.getFullYear(),
             title: value.title,
@@ -36,27 +42,24 @@
             amount: value.amount,
             income: new WinJS.Binding.List(),
             expenses: new WinJS.Binding.List()
-        };
+        });
 
         db.budgets.push(budget);
         save();
     }
     
     function updateBudget(value) {
-        var budget = db.budgets.getItemFromKey(value.key);
-        WinJS.log(JSON.stringify(budget));
+        var budget = getBudget(value.key);
+        budget.year = value.dateFrom.getFullYear();
+        budget.title = value.title;
+        budget.dateFrom = value.dateFrom;
+        budget.dateTo = value.dateTo;
+        budget.amount = value.amount;
         save();
     }
     
     function deleteBudget(key) {
-        var index = -1;
-        db.budgets.every(function(item, i) {
-            if (item.key === key) {
-                index = i;
-                return false;
-            }
-            return true;
-        });
+        var index = indexOfBudgetByKey(key);
         db.budgets.splice(index, 1);
         save();
     }
@@ -110,16 +113,21 @@
                         var budgets = data.budgets || [];
                         for (i = 0, len = budgets.length; i < len; i++) {
                             value = budgets[i];
-                            db.budgets.push({
+                            var budget = {
                                 key: value.key,
                                 year: value.year,
                                 title: value.title,
                                 dateFrom: value.dateFrom,
                                 dateTo: value.dateTo,
                                 amount: value.amount,
-                                income: new WinJS.Binding.List(),
-                                expenses: new WinJS.Binding.List()
-                            });
+                                income: new WinJS.Binding.List(/*value.income*/[{ name: 'aaa', amount: 10 }, { name: 'bbb', amount: 12 }, { name: 'ccc', amount: 22.45 }].map(function (item) {
+                                    return WinJS.Binding.as({ name: item.name, amount: item.amount });
+                                })),
+                                expenses: new WinJS.Binding.List(value.expenses.map(function (item) {
+                                    return WinJS.Binding.as({ name: item.name, amount: item.amount });
+                                }))
+                            };
+                            db.budgets.push(WinJS.Binding.as(budget));
                         }
 
                         var template = data.template || [];
@@ -137,6 +145,19 @@
             );
     }
 
+    function indexOfBudgetByKey(key) {
+        var index = -1;
+        db.budgets.every(function (item, i) {
+            if (item.key === key) {
+                index = i;
+                return false;
+            }
+            return true;
+        });
+
+        return index;
+    }
+    
     function guid() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
