@@ -8,7 +8,7 @@
 
     var groupedBudgets = db.budgets.createGrouped(
         function (item) { return item.year; },
-        function (item) { return '' + item.year; }
+        function (item) { return { title: item.year }; }
     );
     
     WinJS.Namespace.define("Db", {
@@ -54,7 +54,17 @@
     }
 
     function load() {
-        var data = { budgets: [], template: [] };
+        var data = {
+            budgets: [
+                { key: 1, year: 2012, title: 'January', dateFrom: '2012-01-01', dateTo: '2012-01-31', amount: 1000.00 },
+                { key: 2, year: 2012, title: 'February', dateFrom: '2012-02-01', dateTo: '2012-02-29', amount: 1500.00 },
+                { key: 3, year: 2013, title: 'January', dateFrom: '2013-01-01', dateTo: '2013-01-31', amount: 1200.00 },
+                { key: 4, year: 2013, title: 'February', dateFrom: '2013-02-01', dateTo: '2013-02-28', amount: 1700.00 },
+                { key: 5, year: 2013, title: 'March', dateFrom: '2013-03-01', dateTo: '2013-03-31', amount: 1600.00 }
+            ],
+            template: []
+        };
+        
         Windows.Storage.KnownFolders.documentsLibrary.getFileAsync("MySavings.msd")
             .done(
                 function(file) {
