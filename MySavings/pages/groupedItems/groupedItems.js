@@ -35,22 +35,38 @@
             this._initializeLayout(listView, appView.value);
             listView.element.focus();
 
+            //document.getElementsByClassName("item")
             newButton.addEventListener("click", this.showPopup, false);
+            saveBudget.addEventListener("click", this.saveBudget, false);
+            closeBudgetPopup.addEventListener("click", this.closeBudgetPopup, false);
         },
 
         showPopup: function () {
-            var offsetX = window.outerWidth / 2 - (myPopupUI.clientWidth / 2);
-            var offsetY = window.outerHeight / 2 - (myPopupUI.clientHeight / 2);
-            myPopupUI.style.pixelLeft = offsetX;
-            myPopupUI.style.pixelTop = offsetY;
-            myPopupUI.style.opacity = "1";
-            WinJS.UI.Animation.showPopup(myPopupUI, { top: "12px", left: "0px", rtlflip: true }).done(function () {
-                //debugger;
-                var o = 0;
+            var offsetX = window.outerWidth / 2 - (budgetEditPopupUI.clientWidth / 2);
+            var offsetY = window.outerHeight / 2 - (budgetEditPopupUI.clientHeight / 2);
+            budgetEditPopupUI.style.pixelLeft = offsetX;
+            budgetEditPopupUI.style.pixelTop = offsetY;
+            budgetEditPopupUI.style.opacity = "1";
+            WinJS.UI.Animation.showPopup(budgetEditPopupUI, { top: "12px", left: "0px", rtlflip: true }).done(function() {
+                budgetEditPopupUI.setActive();
+                //budgetDateFrom.winControl.current = "";
             });
         },
         
-        // This function updates the page layout in response to viewState changes.
+        saveBudget: function (el) {
+            WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
+            budgetEditPopupUI.style.opacity = 0;
+            var dateFrom = budgetDateFrom.winControl.current;
+            var dateTo = budgetDateTo.winControl.current;
+            
+        },
+        
+        closeBudgetPopup: function () {
+            WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
+            budgetEditPopupUI.style.opacity = 0;
+        },
+        
+            // This function updates the page layout in response to viewState changes.
         updateLayout: function (element, viewState, lastViewState) {
             /// <param name="element" domElement="true" />
 
