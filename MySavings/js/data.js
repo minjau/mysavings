@@ -42,24 +42,46 @@
                         WinJS.log && WinJS.log('Saved', 'db', 'info');
                     });
                 },
-                function (error) {
-                    WinJS.log && WinJS.log(error, "db", "error");
+                function (err) {
+                    WinJS.log && WinJS.log(err, "db", "error");
                 });
     }
 
     function load() {
-        var data;
+        var data = { budgets: [], template: [] };
         Windows.Storage.KnownFolders.documentsLibrary.getFileAsync("MySavings.msd")
             .done(
                 function(file) {
                     Windows.Storage.FileIO.readTextAsync(file).done(function (content) {
-                        WinJS.log && WinJS.log('Loaded ' + content, 'db', 'info');
+                        data = JSON.parse(content);
                     });
                 },
                 function(err) {
-                    WinJS.log && WinJS.log(error, "db", "error");
+                    WinJS.log && WinJS.log(err, "db", "error");
                 }
             );
+
+        var i, len, value;
+        var budgets = data.budgets || [];
+        for (i = 0, len = budgets.length; i < len; i++) {
+            value = budgets[i];
+            db.budgets.push({
+                key: value.key,
+                year: value.year,
+                title: value.title,
+                dateFrom: value.dateFrom,
+                dateTo: value.dateTo,
+                amount: value.amount,
+            });
+        }
+
+        var template = data.template || [];
+        for (i = 0, len = template.length; i < len; i++) {
+            value = template[i];
+            db.template.push({
+
+            });
+        }
     }
 
 
