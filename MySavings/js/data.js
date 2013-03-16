@@ -15,6 +15,7 @@
     WinJS.Namespace.define("Db", {
         groupedBudgets: groupedBudgets,
         createBudget: createBudget,
+        updateBudget: updateBudget,
         save: save,
         load: load
     });
@@ -32,6 +33,11 @@
         };
 
         db.budgets.push(budget);
+        save();
+    }
+    
+    function updateBudget(value) {
+        
         save();
     }
     
