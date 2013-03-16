@@ -58,7 +58,6 @@
             budgetEditPopupUI.style.opacity = 0;
             var dateFrom = budgetDateFrom.winControl.current;
             var dateTo = budgetDateTo.winControl.current;
-            
         },
         
         closeBudgetPopup: function () {
