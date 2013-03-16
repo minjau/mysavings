@@ -98,13 +98,13 @@
             });
         },
         
-        deleteBudget : function() {
-            Db.delete({
-                title: budgetName.value,
-                dateFrom: budgetDateFrom.winControl.current,
-                dateTo: budgetDateTo.winControl.current,
-                amount: budgetAmount.value
-            });
+        deleteBudget: function () {
+            var listView = document.querySelector(".groupeditemslist").winControl;
+            var item = listView.itemDataSource.list.getAt(listView.selection.getIndices()[0]);
+            if (!item) {
+                return;
+            }
+            Db.deleteBudget(item.key);
         },
 
         closeBudgetPopup: function () {
