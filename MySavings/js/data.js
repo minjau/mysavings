@@ -8,7 +8,8 @@
 
     var groupedBudgets = db.budgets.createGrouped(
         function (item) { return item.year; },
-        function (item) { return { title: item.year }; }
+        function (item) { return { title: item.year }; },
+        function (left, right) { return left > right; }
     );
     
     WinJS.Namespace.define("Db", {
