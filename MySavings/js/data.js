@@ -19,6 +19,7 @@
     WinJS.Namespace.define("Db", {
         groupedBudgets: groupedBudgets,
         budgetsInTheGroups: groupedBudgets.groups,
+        getBudget: getBudget,
         createBudget: createBudget,
         updateBudget: updateBudget,
         deleteBudget: deleteBudget,
@@ -26,6 +27,11 @@
         load: load
     });
 
+    function getBudget(key) {
+        var index = indexOfBudgetByKey(key);
+        return db.budgets.getAt(index);
+    }
+    
     function createBudget(value) {
         var budget = WinJS.Binding.as({
             key: guid(),
@@ -43,8 +49,7 @@
     }
     
     function updateBudget(value) {
-        var index = indexOfBudgetByKey(value.key);
-        var budget = db.budgets.getAt(index);
+        var budget = getBudget(value.key);
         budget.year = value.dateFrom.getFullYear();
         budget.title = value.title;
         budget.dateFrom = value.dateFrom;
