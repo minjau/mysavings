@@ -105,7 +105,6 @@
             budgetEditPopupUI.style.display = 'none';
             var selectedItem = self.getSelectedItem();
             if (selectedItem) {
-                debugger;
                 Db.updateBudget({
                     key: selectedItem.key,
                     title: budgetName.value,
