@@ -10,6 +10,13 @@
     z-index: 0;
 }
 
+.dialogBar {
+    bottom: 0px;
+    position: absolute;
+    right: 15px;
+    padding-bottom: 15px;
+}
+
     /* This selector is used to prevent ui-dark/light.css from overwriting changes
        to .win-surface. */
     .groupeditemspage .groupeditemslist .win-horizontal.win-viewport .win-surface {

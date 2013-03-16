@@ -51,11 +51,9 @@
         </section>
     </div>
     
-    <div id="budgetEditPopupUI" class="dialog">
+    <div id="budgetEditPopupUI" style="opacity: 0; display:none; width: 450px; height: 400px; background-color: #78b500; position:absolute; top:400px; z-index:100; border: 1px solid #517900;">
         <div class="innerDiv">
-        <div class="dialogHeader">
             <h2>New Budget</h2>
-        </div>
             <table>
                 <tr>
                     <td><label>Name</label></td>
@@ -73,11 +71,12 @@
                     <td><label>Amount</label></td>
                     <td><input type="text" id="budgetAmount" /></td>
                 </tr>
-                <tr>
-                    <td> <button type="button" id="saveBudget">Save</button></td>
-                    <td><button type="button" id="closeBudgetPopup">Close</button></td>
-                </tr>
+               
             </table>
+             <div class="dialogBar">
+                <button type="button" id="saveBudget">Save</button>
+                <button type="button" id="closeBudgetPopup">Close</button>
+            </div>
         </div>
     </div>
 

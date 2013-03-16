@@ -15,13 +15,11 @@ span.group-title win-type-ellipsis {
     position:absolute; 
     top:400px; 
     z-index:100;
-    border: 1px solid #517900;
+    border: 1px solid #78b500;
 }
 
-.dialog .innerDiv {
-    left: 0px;
-    right: 0px;
-    height: 100%;
-    padding: 2px;
+#budgetEditPopupUI .innerDiv {
+    height: 368px;
+    padding: 15px;
     border: 1px solid #fff;
 }
