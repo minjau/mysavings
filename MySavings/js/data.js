@@ -27,7 +27,7 @@
     });
 
     function createBudget(value) {
-        var budget = {
+        var budget = WinJS.Binding.as({
             key: guid(),
             year: value.dateFrom.getFullYear(),
             title: value.title,
@@ -36,7 +36,7 @@
             amount: value.amount,
             income: new WinJS.Binding.List(),
             expenses: new WinJS.Binding.List()
-        };
+        });
 
         db.budgets.push(budget);
         save();
@@ -108,7 +108,7 @@
                         var budgets = data.budgets || [];
                         for (i = 0, len = budgets.length; i < len; i++) {
                             value = budgets[i];
-                            db.budgets.push({
+                            db.budgets.push(WinJS.Binding.as({
                                 key: value.key,
                                 year: value.year,
                                 title: value.title,
@@ -117,7 +117,7 @@
                                 amount: value.amount,
                                 income: new WinJS.Binding.List(),
                                 expenses: new WinJS.Binding.List()
-                            });
+                            }));
                         }
 
                         var template = data.template || [];
