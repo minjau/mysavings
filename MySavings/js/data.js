@@ -110,7 +110,7 @@
                                 dateTo: value.dateTo,
                                 amount: value.amount,
                                 income: new WinJS.Binding.List(),
-                                expences: new WinJS.Binding.List()
+                                expenses: new WinJS.Binding.List()
                             });
                         }
 
