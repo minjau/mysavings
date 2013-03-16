@@ -62,7 +62,13 @@
                     title: value.title,
                     dateFrom: value.dateFrom,
                     dateTo: value.dateTo,
-                    amount: value.amount
+                    amount: value.amount,
+                    income: value.income.map(function(item) {
+                        return { key: item.key, name: item.name, amount: item.amount };
+                    }),
+                    expenses: value.expenses.map(function(item) {
+                        return { key: item.key, name: item.name, amount: item.amount };
+                    })
                 };
             }),
             template: db.template.map(function(value) {
@@ -103,6 +109,8 @@
                                 dateFrom: value.dateFrom,
                                 dateTo: value.dateTo,
                                 amount: value.amount,
+                                income: new WinJS.Binding.List(value.income),
+                                expences: new WinJS.Binding.List(value.expenses)
                             });
                         }
 
