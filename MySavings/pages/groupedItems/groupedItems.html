@@ -43,22 +43,38 @@
             </h1>
         </header>
         <section aria-label="Main content" role="main">
-
-            <div class="groupeditemslist win-selectionstylefilled" aria-label="List of groups" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
+            <div
+                class="groupeditemslist win-selectionstylefilled"
+                aria-label="List of groups"
+                data-win-control="WinJS.UI.ListView"
+                data-win-options="{ selectionMode: 'single' }"></div>
         </section>
     </div>
     
-    <div id="myPopupUI" style="opacity: 0; width: 400px; height: 400px; background-color: blue; position:absolute; top:400px; z-index:100;">
+    <div id="budgetEditPopupUI" style="opacity: 0; display:none; width: 450px; height: 400px; background-color: blue; position:absolute; top:400px; z-index:100;">
         <h2>New Budget</h2>
-        <label>Name</label>
-        <input type="text" id="name" /><br />
-        <label>Date from</label>
-        <div id="dateFrom" data-win-control="WinJS.UI.DatePicker" data-win-options="{disabled:false,maxYear:2020,minYear:2001}"></div>
-        <label>To</label>
-        <div id="dateTo" data-win-control="WinJS.UI.DatePicker" data-win-options="{disabled:false,maxYear:2020,minYear:2001}"></div><br />
-        <label>Amount</label>
-        <input type="text" id="amount" /><br />
-        <button type="submit">Save</button>
+        <table>
+            <tr>
+                <td><label>Name</label></td>
+                <td><input type="text" id="budgetName" /></td>
+            </tr>
+            <tr>
+                <td><label>Date from</label></td>
+                <td><div id="budgetDateFrom" data-win-control="WinJS.UI.DatePicker" data-win-options="{disabled:false,maxYear:2020,minYear:2001}"></div></td>
+            </tr>
+            <tr>
+                <td><label>To</label></td>
+                <td><div id="budgetDateTo" data-win-control="WinJS.UI.DatePicker" data-win-options="{disabled:false,maxYear:2020,minYear:2001}"></div></td>
+            </tr>
+            <tr>
+                <td><label>Amount</label></td>
+                <td><input type="text" id="budgetAmount" /></td>
+            </tr>
+            <tr>
+                <td> <button type="button" id="saveBudget">Save</button></td>
+                <td><button type="button" id="closeBudgetPopup">Close</button></td>
+            </tr>
+        </table>
     </div>
 
     <div id="appbar" data-win-control="WinJS.UI.AppBar">
