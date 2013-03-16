@@ -18,6 +18,9 @@
                     key: value.key,
                     year: value.year,
                     title: value.title,
+                    dateFrom: value.dateFrom,
+                    dateTo: value.dateTo,
+                    amount: value.amount,
                     income: value.income.map(function() {
                         return {};
                     })
@@ -45,7 +48,18 @@
     }
 
     function load() {
-
+        var data;
+        Windows.Storage.KnownFolders.documentsLibrary.getFileAsync("MySavings.msd")
+            .done(
+                function(file) {
+                    Windows.Storage.FileIO.readTextAsync(file).done(function (content) {
+                        WinJS.log && WinJS.log('Loaded ' + content, 'db', 'info');
+                    });
+                },
+                function(err) {
+                    WinJS.log && WinJS.log(error, "db", "error");
+                }
+            );
     }
 
 
