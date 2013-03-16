@@ -13,9 +13,24 @@
     
     WinJS.Namespace.define("Db", {
         groupedBudgets: groupedBudgets,
+        createBudget: createBudget,
         save: save,
         load: load
     });
+    
+    function createBudget(value) {
+        var budget = {
+            key: value.key,
+            year: value.dateFrom.getYear(),
+            title: value.title,
+            dateFrom: value.dateFrom,
+            dateTo: value.dateTo,
+            amount: value.amount
+        };
+
+        db.budgets.push(budget);
+        save();
+    }
     
     function save() {
         var data = {
@@ -99,7 +114,6 @@
             });
         }
     }
-
 
 
     // ---------------------------------------------------------------------------------
