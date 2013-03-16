@@ -29,7 +29,7 @@
             <div class="itembg"><h3>Feb 15</h3></div>
             <div class="item-overlay">
                 <h4 class="item-title" data-win-bind="textContent: title"></h4>
-                <h6 class="item-subtitle win-type-ellipsis" data-win-bind="textContent: subtitle"></h6>
+                <h6 class="item-subtitle win-type-ellipsis" data-win-bind="textContent: key"></h6>
             </div>
         </div>
     </div>
@@ -82,6 +82,8 @@
     </div>
 
     <div id="appbar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{hidden:'true', id:'editButton', icon:'edit', label:'Edit', section:'global', type:'button'}"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{hidden:'true', id:'deleteButton', icon:'delete', label:'Delete', section:'global', type:'button'}"></button>
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'newButton', icon:'add', label:'New', section:'global', type:'button'}"></button>
     </div>
 </body>
