@@ -113,16 +113,21 @@
                         var budgets = data.budgets || [];
                         for (i = 0, len = budgets.length; i < len; i++) {
                             value = budgets[i];
-                            db.budgets.push(WinJS.Binding.as({
+                            var budget = {
                                 key: value.key,
                                 year: value.year,
                                 title: value.title,
                                 dateFrom: value.dateFrom,
                                 dateTo: value.dateTo,
                                 amount: value.amount,
-                                income: new WinJS.Binding.List(),
-                                expenses: new WinJS.Binding.List()
-                            }));
+                                income: new WinJS.Binding.List(value.income.map(function(item) {
+                                    return WinJS.Binding.as({ name: item.name, amount: item.amount });
+                                })),
+                                expenses: new WinJS.Binding.List(value.expenses.map(function (item) {
+                                    return WinJS.Binding.as({ name: item.name, amount: item.amount });
+                                }))
+                            };
+                            db.budgets.push(WinJS.Binding.as(budget));
                         }
 
                         var template = data.template || [];
