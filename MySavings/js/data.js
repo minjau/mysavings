@@ -23,7 +23,7 @@
     function createBudget(value) {
         var budget = {
             key: guid(),
-            year: value.dateFrom.getYear(),
+            year: value.dateFrom.getFullYear(),
             title: value.title,
             dateFrom: value.dateFrom,
             dateTo: value.dateTo,
@@ -75,50 +75,49 @@
     }
 
     function load() {
-        var data = {
-            budgets: [
-                { key: guid(), year: 2012, title: 'January', dateFrom: '2012-01-01', dateTo: '2012-01-31', amount: 1000.00 },
-                { key: guid(), year: 2012, title: 'February', dateFrom: '2012-02-01', dateTo: '2012-02-29', amount: 1500.00 },
-                { key: guid(), year: 2013, title: 'January', dateFrom: '2013-01-01', dateTo: '2013-01-31', amount: 1200.00 },
-                { key: guid(), year: 2013, title: 'February', dateFrom: '2013-02-01', dateTo: '2013-02-28', amount: 1700.00 },
-                { key: guid(), year: 2013, title: 'March', dateFrom: '2013-03-01', dateTo: '2013-03-31', amount: 1600.00 }
-            ],
-            template: []
-        };
+        //var data = {
+        //    budgets: [
+        //        { key: guid(), year: 2012, title: 'January', dateFrom: '2012-01-01', dateTo: '2012-01-31', amount: 1000.00 },
+        //        { key: guid(), year: 2012, title: 'February', dateFrom: '2012-02-01', dateTo: '2012-02-29', amount: 1500.00 },
+        //        { key: guid(), year: 2013, title: 'January', dateFrom: '2013-01-01', dateTo: '2013-01-31', amount: 1200.00 },
+        //        { key: guid(), year: 2013, title: 'February', dateFrom: '2013-02-01', dateTo: '2013-02-28', amount: 1700.00 },
+        //        { key: guid(), year: 2013, title: 'March', dateFrom: '2013-03-01', dateTo: '2013-03-31', amount: 1600.00 }
+        //    ],
+        //    template: []
+        //};
         
         Windows.Storage.KnownFolders.documentsLibrary.getFileAsync("MySavings.msd")
             .done(
-                function(file) {
+                function (file) {
                     Windows.Storage.FileIO.readTextAsync(file).done(function (content) {
-                        data = JSON.parse(content);
+                        var data = JSON.parse(content);
+                        var i, len, value;
+                        var budgets = data.budgets || [];
+                        for (i = 0, len = budgets.length; i < len; i++) {
+                            value = budgets[i];
+                            db.budgets.push({
+                                key: value.key,
+                                year: value.year,
+                                title: value.title,
+                                dateFrom: value.dateFrom,
+                                dateTo: value.dateTo,
+                                amount: value.amount,
+                            });
+                        }
+
+                        var template = data.template || [];
+                        for (i = 0, len = template.length; i < len; i++) {
+                            value = template[i];
+                            db.template.push({
+
+                            });
+                        }
                     });
                 },
                 function(err) {
                     WinJS.log && WinJS.log(err, "db", "error");
                 }
             );
-
-        var i, len, value;
-        var budgets = data.budgets || [];
-        for (i = 0, len = budgets.length; i < len; i++) {
-            value = budgets[i];
-            db.budgets.push({
-                key: value.key,
-                year: value.year,
-                title: value.title,
-                dateFrom: value.dateFrom,
-                dateTo: value.dateTo,
-                amount: value.amount,
-            });
-        }
-
-        var template = data.template || [];
-        for (i = 0, len = template.length; i < len; i++) {
-            value = template[i];
-            db.template.push({
-
-            });
-        }
     }
 
     function guid() {
