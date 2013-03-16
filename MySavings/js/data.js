@@ -43,20 +43,18 @@
     }
     
     function updateBudget(value) {
-        var budget = db.budgets.getItemFromKey(value.key);
-        WinJS.log(JSON.stringify(budget));
+        var index = indexOfBudgetByKey(value.key);
+        var budget = db.budgets.getAt(index);
+        budget.year = value.dateFrom.getFullYear();
+        budget.title = value.title;
+        budget.dateFrom = value.dateFrom;
+        budget.dateTo = value.dateTo;
+        budget.amount = value.amount;
         save();
     }
     
     function deleteBudget(key) {
-        var index = -1;
-        db.budgets.every(function(item, i) {
-            if (item.key === key) {
-                index = i;
-                return false;
-            }
-            return true;
-        });
+        var index = indexOfBudgetByKey(key);
         db.budgets.splice(index, 1);
         save();
     }
@@ -137,6 +135,19 @@
             );
     }
 
+    function indexOfBudgetByKey(key) {
+        var index = -1;
+        db.budgets.every(function (item, i) {
+            if (item.key === key) {
+                index = i;
+                return false;
+            }
+            return true;
+        });
+
+        return index;
+    }
+    
     function guid() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
