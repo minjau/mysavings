@@ -41,5 +41,6 @@
         app.sessionState.history = nav.history;
     };
 
+    WinJS.Utilities.startLog();
     app.start();
 })();
