@@ -5,3 +5,21 @@
 span.group-title win-type-ellipsis {
     color: #000;
 }
+
+.dialog {
+    opacity: 0; 
+    display:none; 
+    width: 450px; 
+    height: 400px; 
+    background-color: #78b500; 
+    position:absolute; 
+    top:400px; 
+    z-index:100;
+    border: 1px solid #78b500;
+}
+
+#budgetEditPopupUI .innerDiv {
+    height: 368px;
+    padding: 15px;
+    border: 1px solid #fff;
+}

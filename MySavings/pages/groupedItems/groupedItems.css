@@ -10,6 +10,13 @@
     z-index: 0;
 }
 
+.dialogBar {
+    bottom: 0px;
+    position: absolute;
+    right: 15px;
+    padding-bottom: 15px;
+}
+
     /* This selector is used to prevent ui-dark/light.css from overwriting changes
        to .win-surface. */
     .groupeditemspage .groupeditemslist .win-horizontal.win-viewport .win-surface {
@@ -98,8 +105,14 @@
             }
 
 .groupeditemspage .groupeditemslist .item .itembg{
-    background-image: -ms-radial-gradient(100% 100%, farthest-corner, #326300 10%, #8abe02 100%); /* IE10+ */
+    /*background-image: -ms-radial-gradient(100% 100%, farthest-corner, #326300 10%, #8abe02 100%); /* IE10+ */
+    background-color: #8abe02;
     opacity: 0.95;
+    padding: 15px;
+}
+
+.groupeditemspage .groupeditemslist .item .itembg h3 {
+    font-size: 18px;
 }
 
 @media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
