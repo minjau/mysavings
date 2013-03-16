@@ -39,8 +39,10 @@
         },
 
         showPopup: function () {
-            var offsetX = window.outerWidth / 2 - 100;
+            var offsetX = window.outerWidth / 2 - (myPopupUI.clientWidth / 2);
+            var offsetY = window.outerHeight / 2 - (myPopupUI.clientHeight / 2);
             myPopupUI.style.pixelLeft = offsetX;
+            myPopupUI.style.pixelTop = offsetY;
             myPopupUI.style.opacity = "1";
             WinJS.UI.Animation.showPopup(myPopupUI, { top: "12px", left: "0px", rtlflip: true }).done(function () {
                 //debugger;
