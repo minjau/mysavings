@@ -120,7 +120,7 @@
                                 dateFrom: value.dateFrom,
                                 dateTo: value.dateTo,
                                 amount: value.amount,
-                                income: new WinJS.Binding.List(value.income.map(function(item) {
+                                income: new WinJS.Binding.List(/*value.income*/[{ name: 'aaa', amount: 10 }, { name: 'bbb', amount: 12 }, { name: 'ccc', amount: 22.45 }].map(function (item) {
                                     return WinJS.Binding.as({ name: item.name, amount: item.amount });
                                 })),
                                 expenses: new WinJS.Binding.List(value.expenses.map(function (item) {
