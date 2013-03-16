@@ -103,7 +103,7 @@
                 listView.layout = new ui.ListLayout();
             } else {
                 listView.itemDataSource = Db.groupedBudgets.dataSource;
-                listView.groupDataSource = Db.groupedBudgets.groups.dataSource;
+                listView.groupDataSource = Db.budgetsInTheGroups.dataSource;
                 listView.layout = new ui.GridLayout({ groupHeaderPosition: "top" });
             }
         },

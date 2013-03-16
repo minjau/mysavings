@@ -6,20 +6,25 @@
         template: new WinJS.Binding.List()
     };
 
-    var groupedBudgets = db.budgets.createGrouped(
-        function (item) { return item.year; },
-        function (item) { return { title: item.year }; },
-        function (left, right) { return right - left; }
-    );
+    var groupedBudgets = db.budgets
+        .createSorted(function(left, right) {
+            return left.dateFrom < right.dateFrom ? -1 : left.dateFrom > right.dateFrom ? 1 : 0;
+        })
+        .createGrouped(
+            function (item) { return item.year; },
+            function (item) { return { title: item.year }; },
+            function (left, right) { return right - left; }
+        );
     
     WinJS.Namespace.define("Db", {
         groupedBudgets: groupedBudgets,
+        budgetsInTheGroups: groupedBudgets.groups,
         createBudget: createBudget,
         updateBudget: updateBudget,
         save: save,
         load: load
     });
-    
+
     function createBudget(value) {
         var budget = {
             key: guid(),
