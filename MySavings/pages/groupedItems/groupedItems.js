@@ -5,7 +5,7 @@
     var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
     var nav = WinJS.Navigation;
     var ui = WinJS.UI;
-
+    
     ui.Pages.define("/pages/groupedItems/groupedItems.html", {
         // Navigates to the groupHeaderPage. Called from the groupHeaders,
         // keyboard shortcut and iteminvoked.
@@ -34,8 +34,20 @@
 
             this._initializeLayout(listView, appView.value);
             listView.element.focus();
+
+            newButton.addEventListener("click", this.showPopup, false);
         },
 
+        showPopup: function () {
+            var offsetX = window.outerWidth / 2 - 100;
+            myPopupUI.style.pixelLeft = offsetX;
+            myPopupUI.style.opacity = "1";
+            WinJS.UI.Animation.showPopup(myPopupUI, { top: "12px", left: "0px", rtlflip: true }).done(function () {
+                //debugger;
+                var o = 0;
+            });
+        },
+        
         // This function updates the page layout in response to viewState changes.
         updateLayout: function (element, viewState, lastViewState) {
             /// <param name="element" domElement="true" />
