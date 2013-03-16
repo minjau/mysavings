@@ -1,6 +1,73 @@
 ﻿(function () {
     "use strict";
 
+    var db = {
+        budgets: new WinJS.Binding.List(),
+        template: new WinJS.Binding.List()
+    };
+
+    WinJS.Namespace.define("Db", {
+        save: save,
+        load: load
+    });
+    
+    function save() {
+        var data = {
+            budgets: db.budgets.map(function(value) {
+                return {
+                    key: value.key,
+                    year: value.year,
+                    title: value.title,
+                    income: value.income.map(function() {
+                        return {};
+                    })
+                };
+            }),
+            template: db.template.map(function(value) {
+                return {
+                    key: value.key,
+                    name: value.name,
+                    amount: value.amount
+                };
+            })
+        };
+        
+        Windows.Storage.KnownFolders.documentsLibrary.createFileAsync("MySavings.msd", Windows.Storage.CreationCollisionOption.replaceExisting)
+            .done(
+                function (file) {
+                    Windows.Storage.FileIO.writeTextAsync(file, JSON.stringify(data)).done(function () {
+                        WinJS.log && WinJS.log('Saved', 'db', 'info');
+                    });
+                },
+                function (error) {
+                    WinJS.log && WinJS.log(error, "db", "error");
+                });
+    }
+
+    function load() {
+
+    }
+
+
+
+    // ---------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     var list = new WinJS.Binding.List();
     var groupedItems = list.createGrouped(
         function groupKeySelector(item) { return item.group.key; },
