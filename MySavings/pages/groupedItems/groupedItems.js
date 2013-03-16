@@ -121,6 +121,9 @@
                     amount: budgetAmount.value
                 });
             }
+            
+            var listView = document.querySelector(".groupeditemslist").winControl;
+            listView.selection.clear();
         },
         
         clearData: function() {
