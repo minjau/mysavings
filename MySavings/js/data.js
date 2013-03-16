@@ -27,7 +27,7 @@
     });
 
     function createBudget(value) {
-        var budget = {
+        var budget = WinJS.Binding.as({
             key: guid(),
             year: value.dateFrom.getFullYear(),
             title: value.title,
@@ -36,27 +36,25 @@
             amount: value.amount,
             income: new WinJS.Binding.List(),
             expenses: new WinJS.Binding.List()
-        };
+        });
 
         db.budgets.push(budget);
         save();
     }
     
     function updateBudget(value) {
-        var budget = db.budgets.getItemFromKey(value.key);
-        WinJS.log(JSON.stringify(budget));
+        var index = indexOfBudgetByKey(value.key);
+        var budget = db.budgets.getAt(index);
+        budget.year = value.dateFrom.getFullYear();
+        budget.title = value.title;
+        budget.dateFrom = value.dateFrom;
+        budget.dateTo = value.dateTo;
+        budget.amount = value.amount;
         save();
     }
     
     function deleteBudget(key) {
-        var index = -1;
-        db.budgets.every(function(item, i) {
-            if (item.key === key) {
-                index = i;
-                return false;
-            }
-            return true;
-        });
+        var index = indexOfBudgetByKey(key);
         db.budgets.splice(index, 1);
         save();
     }
@@ -110,7 +108,7 @@
                         var budgets = data.budgets || [];
                         for (i = 0, len = budgets.length; i < len; i++) {
                             value = budgets[i];
-                            db.budgets.push({
+                            db.budgets.push(WinJS.Binding.as({
                                 key: value.key,
                                 year: value.year,
                                 title: value.title,
@@ -119,7 +117,7 @@
                                 amount: value.amount,
                                 income: new WinJS.Binding.List(),
                                 expenses: new WinJS.Binding.List()
-                            });
+                            }));
                         }
 
                         var template = data.template || [];
@@ -137,6 +135,19 @@
             );
     }
 
+    function indexOfBudgetByKey(key) {
+        var index = -1;
+        db.budgets.every(function (item, i) {
+            if (item.key === key) {
+                index = i;
+                return false;
+            }
+            return true;
+        });
+
+        return index;
+    }
+    
     function guid() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
