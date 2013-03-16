@@ -42,6 +42,7 @@
         },
 
         showPopup: function () {
+            budgetEditPopupUI.style.display = '';
             var offsetX = window.outerWidth / 2 - (budgetEditPopupUI.clientWidth / 2);
             var offsetY = window.outerHeight / 2 - (budgetEditPopupUI.clientHeight / 2);
             budgetEditPopupUI.style.pixelLeft = offsetX;
@@ -56,12 +57,18 @@
         saveBudget: function (el) {
             WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
             budgetEditPopupUI.style.opacity = 0;
-            var dateFrom = budgetDateFrom.winControl.current;
-            var dateTo = budgetDateTo.winControl.current;
+            budgetEditPopupUI.style.display = 'none';
+            Db.createBudget({
+                title: budgetName.value,
+                dateFrom: budgetDateFrom.winControl.current,
+                dateTo: budgetDateTo.winControl.current,
+                amount: budgetAmount.value
+            });
         },
         
         closeBudgetPopup: function () {
             WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
+            budgetEditPopupUI.style.display = 'none';
             budgetEditPopupUI.style.opacity = 0;
         },
         
