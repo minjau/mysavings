@@ -5,3 +5,23 @@
 span.group-title win-type-ellipsis {
     color: #000;
 }
+
+.dialog {
+    opacity: 0; 
+    display:none; 
+    width: 450px; 
+    height: 400px; 
+    background-color: #78b500; 
+    position:absolute; 
+    top:400px; 
+    z-index:100;
+    border: 1px solid #517900;
+}
+
+.dialog .innerDiv {
+    left: 0px;
+    right: 0px;
+    height: 100%;
+    padding: 2px;
+    border: 1px solid #fff;
+}

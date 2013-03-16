@@ -98,8 +98,14 @@
             }
 
 .groupeditemspage .groupeditemslist .item .itembg{
-    background-image: -ms-radial-gradient(100% 100%, farthest-corner, #326300 10%, #8abe02 100%); /* IE10+ */
+    /*background-image: -ms-radial-gradient(100% 100%, farthest-corner, #326300 10%, #8abe02 100%); /* IE10+ */
+    background-color: #8abe02;
     opacity: 0.95;
+    padding: 15px;
+}
+
+.groupeditemspage .groupeditemslist .item .itembg h3 {
+    font-size: 18px;
 }
 
 @media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
