@@ -98,26 +98,15 @@
             }
 
 .groupeditemspage .groupeditemslist .item .itembg{
-    background-color: #FFF;
-     /*-moz-border-radius-topright: 7px;
-    border-bottom-right-radius: 7px;
-    -moz-border-radius-bottomright: 7px;
-    -webkit-border-bottomright: 7px; 
-    -webkit-border-topright: 7px; 
-    
-    -moz-background-clip: padding; 
-	-webkit-background-clip: padding-box; 
-	background-clip: padding-box;	
-	
-	-moz-box-shadow:inset 0px 0px 10px rgba(0,0,0,0.5); 
-	-webkit-box-shadow:inset 0px 0px 10px rgba(0,0,0,0.5); 
-	box-shadow:inset 0px 0px 10px rgba(0,0,0,0.5);
-    outline:none;*/
+    background-image: -ms-radial-gradient(100% 100%, farthest-corner, #326300 10%, #8abe02 100%); /* IE10+ */
+    opacity: 0.95;
 }
 
 @media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
     .groupeditemspage .groupeditemslist .item .item-overlay {
-        background: #69b3da;
+        background: #326300;
+        border-top: 1px solid white;
+        opacity: 0.95;
     }
 
         .groupeditemspage .groupeditemslist .item .item-overlay .item-title {
