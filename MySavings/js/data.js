@@ -6,7 +6,13 @@
         template: new WinJS.Binding.List()
     };
 
+    var groupedBudgets = db.budgets.createGrouped(
+        function (item) { return item.year; },
+        function (item) { return '' + item.year; }
+    );
+    
     WinJS.Namespace.define("Db", {
+        groupedBudgets: groupedBudgets,
         save: save,
         load: load
     });
