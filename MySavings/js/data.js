@@ -20,12 +20,14 @@
     
     function createBudget(value) {
         var budget = {
-            key: value.key,
+            key: guid(),
             year: value.dateFrom.getYear(),
             title: value.title,
             dateFrom: value.dateFrom,
             dateTo: value.dateTo,
-            amount: value.amount
+            amount: value.amount,
+            income: new WinJS.Binding.List(),
+            expenses: new WinJS.Binding.List()
         };
 
         db.budgets.push(budget);
@@ -41,10 +43,7 @@
                     title: value.title,
                     dateFrom: value.dateFrom,
                     dateTo: value.dateTo,
-                    amount: value.amount,
-                    income: value.income.map(function() {
-                        return {};
-                    })
+                    amount: value.amount
                 };
             }),
             template: db.template.map(function(value) {
@@ -115,6 +114,13 @@
         }
     }
 
+    function guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        };
+
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
 
     // ---------------------------------------------------------------------------------
 
