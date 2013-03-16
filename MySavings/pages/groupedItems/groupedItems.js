@@ -55,6 +55,7 @@
         },
         
         listViewSelectionChanged: function () {
+            self.closeBudgetPopup();
             var item = self.getSelectedItem();
             if (!item) {
                 return;
@@ -135,6 +136,7 @@
                 return;
             }
             Db.deleteBudget(item.key);
+            appbar.winControl.hide();
         },
 
         closeBudgetPopup: function () {
