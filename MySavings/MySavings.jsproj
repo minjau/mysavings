@@ -55,7 +55,6 @@
     </AppxManifest>
     <Content Include="css\custom-ui.css" />
     <Content Include="css\default.css" />
-    <Content Include="images\body-bg.jpg" />
     <Content Include="images\logo.png" />
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
