@@ -1,6 +1,8 @@
 ﻿#contenthost {
     height: 100%;
     width: 100%;
+    background: url("../images/body-bg.jpg") repeat scroll 0 0 #F3F3F3;
+    color: #000;
 }
 
 .fragment {
