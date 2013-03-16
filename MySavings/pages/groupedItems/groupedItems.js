@@ -35,10 +35,14 @@
             this._initializeLayout(listView, appView.value);
             listView.element.focus();
 
-            //document.getElementsByClassName("item")
+            listView.onselectionchanged = this.showAppBar;
             newButton.addEventListener("click", this.showPopup, false);
             saveBudget.addEventListener("click", this.saveBudget, false);
             closeBudgetPopup.addEventListener("click", this.closeBudgetPopup, false);
+        },
+        
+        showAppBar: function () {
+            appbar.winControl.show();
         },
 
         showPopup: function () {
