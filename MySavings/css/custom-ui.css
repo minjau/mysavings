@@ -1,0 +1,7 @@
+﻿.fragment header[role=banner] .titlearea .pagetitle {
+    color: #000;
+}
+
+span.group-title win-type-ellipsis {
+    color: #000;
+}

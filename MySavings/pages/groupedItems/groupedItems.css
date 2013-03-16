@@ -50,6 +50,7 @@
 
         .groupeditemspage .groupeditemslist .group-header .group-title {
             display: inline-block;
+            color: #000;
         }
 
         .groupeditemspage .groupeditemslist .group-header .group-chevron {
@@ -98,7 +99,7 @@
 
 @media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
     .groupeditemspage .groupeditemslist .item .item-overlay {
-        background: rgba(0,0,0,0.65);
+        background: #69b3da;
     }
 
         .groupeditemspage .groupeditemslist .item .item-overlay .item-title {

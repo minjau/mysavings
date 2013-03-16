@@ -92,8 +92,8 @@
                 listView.groupDataSource = null;
                 listView.layout = new ui.ListLayout();
             } else {
-                listView.itemDataSource = Data.items.dataSource;
-                listView.groupDataSource = Data.groups.dataSource;
+                listView.itemDataSource = Db.groupedBudgets.dataSource;
+                listView.groupDataSource = Db.groupedBudgets.groups.dataSource;
                 listView.layout = new ui.GridLayout({ groupHeaderPosition: "top" });
             }
         },
