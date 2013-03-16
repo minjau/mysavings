@@ -97,6 +97,24 @@
                 width: 220px;
             }
 
+.groupeditemspage .groupeditemslist .item .itembg{
+    background-color: #FFF;
+     /*-moz-border-radius-topright: 7px;
+    border-bottom-right-radius: 7px;
+    -moz-border-radius-bottomright: 7px;
+    -webkit-border-bottomright: 7px; 
+    -webkit-border-topright: 7px; 
+    
+    -moz-background-clip: padding; 
+	-webkit-background-clip: padding-box; 
+	background-clip: padding-box;	
+	
+	-moz-box-shadow:inset 0px 0px 10px rgba(0,0,0,0.5); 
+	-webkit-box-shadow:inset 0px 0px 10px rgba(0,0,0,0.5); 
+	box-shadow:inset 0px 0px 10px rgba(0,0,0,0.5);
+    outline:none;*/
+}
+
 @media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
     .groupeditemspage .groupeditemslist .item .item-overlay {
         background: #69b3da;
