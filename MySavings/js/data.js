@@ -48,8 +48,16 @@
         save();
     }
     
-    function deleteBudget(value) {
-        db.budgets.splice(db.budgets.indexOf(value), 1);
+    function deleteBudget(key) {
+        var index = -1;
+        db.budgets.every(function(item, i) {
+            if (item.key === key) {
+                index = i;
+                return false;
+            }
+            return true;
+        });
+        db.budgets.splice(index, 1);
         save();
     }
     
