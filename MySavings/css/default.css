@@ -1,8 +1,7 @@
 ﻿#contenthost {
     height: 100%;
     width: 100%;
-    background: url("../images/treemoney.jpg");
-    background-position:right bottom; 
+    background: #FFF url("../images/treemoney.jpg") no-repeat right bottom;
     color: #000;
 }
 
