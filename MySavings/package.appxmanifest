@@ -17,7 +17,7 @@
     <Application Id="App" StartPage="default.html">
       <VisualElements DisplayName="MySavings" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="MySavings" ForegroundText="light" BackgroundColor="#464646">
         <DefaultTile ShowName="allLogos" />
-        <SplashScreen Image="images\splashscreen.png" />
+        <SplashScreen Image="images\splashscreen.png" BackgroundColor="#FFFFFF" />
       </VisualElements>
       <Extensions>
         <Extension Category="windows.fileTypeAssociation">
