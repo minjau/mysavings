@@ -151,8 +151,8 @@
                 this.navigateToGroup(group.key);
             } else {
                 // If the page is not snapped, the user invoked an item.
-                var item = Data.items.getAt(args.detail.itemIndex);
-                nav.navigate("/pages/itemDetail/itemDetail.html", { item: Data.getItemReference(item) });
+                var item = Db.groupedBudgets.getAt(args.detail.itemIndex);
+                nav.navigate("/pages/itemDetail/itemDetail.html", { item: [item.key, item.title] });
             }
         }
     });
