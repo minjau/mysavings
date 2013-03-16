@@ -21,6 +21,7 @@
         budgetsInTheGroups: groupedBudgets.groups,
         createBudget: createBudget,
         updateBudget: updateBudget,
+        deleteBudget: deleteBudget,
         save: save,
         load: load
     });
@@ -44,6 +45,11 @@
     function updateBudget(value) {
         var budget = db.budgets.getItemFromKey(value.key);
         WinJS.log(JSON.stringify(budget));
+        save();
+    }
+    
+    function deleteBudget(value) {
+        db.budgets.splice(db.budgets.indexOf(value), 1);
         save();
     }
     
@@ -123,24 +129,7 @@
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     }
 
-    // ---------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /*
     var list = new WinJS.Binding.List();
     var groupedItems = list.createGrouped(
         function groupKeySelector(item) { return item.group.key; },
@@ -265,4 +254,5 @@
 
         return sampleItems;
     }
+    */
 })();
