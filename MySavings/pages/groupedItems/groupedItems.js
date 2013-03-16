@@ -86,12 +86,11 @@
             budgetEditPopupUI.style.pixelLeft = offsetX;
             budgetEditPopupUI.style.pixelTop = offsetY;
             budgetEditPopupUI.style.opacity = "1";
-            debugger;
             if (prefilData) {
                 var item = self.getSelectedItem();
                 budgetName.value = item.title;
-                budgetDateFrom.winControl.current.value = item.dateFrom;
-                budgetDateTo.winControl.current.value = item.title;
+                budgetDateFrom.winControl.current = new Date(item.dateFrom);
+                budgetDateTo.winControl.current = new Date(item.dateTo);
                 budgetAmount.value = item.amount;
             }
 
@@ -104,18 +103,30 @@
             WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
             budgetEditPopupUI.style.opacity = 0;
             budgetEditPopupUI.style.display = 'none';
-            Db.createBudget({
-                title: budgetName.value,
-                dateFrom: budgetDateFrom.winControl.current,
-                dateTo: budgetDateTo.winControl.current,
-                amount: budgetAmount.value
-            });
+            var selectedItem = self.getSelectedItem();
+            if (selectedItem) {
+                debugger;
+                Db.updateBudget({
+                    key: selectedItem.key,
+                    title: budgetName.value,
+                    dateFrom: budgetDateFrom.winControl.current,
+                    dateTo: budgetDateTo.winControl.current,
+                    amount: budgetAmount.value
+                });
+            } else {
+                Db.createBudget({
+                    title: budgetName.value,
+                    dateFrom: budgetDateFrom.winControl.current,
+                    dateTo: budgetDateTo.winControl.current,
+                    amount: budgetAmount.value
+                });
+            }
         },
         
         clearData: function() {
             budgetName.value = "";
-            budgetDateFrom.winControl.current = new Date(2000, 1, 1);
-            budgetDateTo.winControl.current = new Date(2000, 1, 1);
+            budgetDateFrom.winControl.current = new Date(2000, 0, 1);
+            budgetDateTo.winControl.current = new Date(2000, 0, 1);
             budgetAmount.value = "";
         },
 
@@ -135,7 +146,7 @@
         
         getSelectedItem: function() {
             var listView = document.querySelector(".groupeditemslist").winControl;
-            var item = listView.itemDataSource.list.getAt(listView.selection.getIndices()[0]);
+            var item = Db.groupedBudgets.getAt(listView.selection.getIndices()[0]);
             if (!item) {
                 return null;
             }
