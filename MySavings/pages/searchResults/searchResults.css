@@ -16,10 +16,6 @@ h3.item-title {
     color: #FFF;
 }
 
-.win-type-ellipsis {
-    text-overflow: clip;
-}
-
 .searchResults section[role=main] {
     /* Define a grid with rows for the filters and results */
     -ms-grid-columns: 1fr;

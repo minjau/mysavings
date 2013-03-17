@@ -59,10 +59,10 @@
             title: value.title,
             dateFrom: value.dateFrom,
             dateTo: value.dateTo,
-            amount: value.amount,
+            amount: parseFloat(value.amount),
             incomeSum: 0,
             expensesSum: 0,
-            balance: 0,
+            balance: parseFloat(value.amount),
             color: positiveBudgetColor,
             income: new WinJS.Binding.List(),
             expenses: new WinJS.Binding.List()
@@ -78,7 +78,7 @@
         budget.title = value.title;
         budget.dateFrom = value.dateFrom;
         budget.dateTo = value.dateTo;
-        budget.amount = value.amount;
+        budget.amount = parseFloat(value.amount);
         recalcBudget(budget);
         save();
     }
@@ -93,7 +93,7 @@
         var budget = getBudget(budgetKey);
         var income = WinJS.Binding.as({
             name: value.name,
-            amount: value.amount
+            amount: parseFloat(value.amount)
         });
         budget.income.push(income);
         recalcBudget(budget);
@@ -104,7 +104,7 @@
         var budget = getBudget(budgetKey);
         var income = budget.income.getAt(index);
         income.name = value.name;
-        income.amount = value.amount;
+        income.amount = parseFloat(value.amount);
         recalcBudget(budget);
         save();
     }
@@ -120,7 +120,7 @@
         var budget = getBudget(budgetKey);
         var expense = WinJS.Binding.as({
             name: value.name,
-            amount: value.amount
+            amount: parseFloat(value.amount)
         });
         budget.expenses.push(expense);
         recalcBudget(budget);
@@ -131,7 +131,7 @@
         var budget = getBudget(budgetKey);
         var expense = budget.income.getAt(index);
         expense.name = value.name;
-        expense.amount = value.amount;
+        expense.amount = parseFloat(value.amount);
         recalcBudget(budget);
         save();
     }

@@ -124,7 +124,7 @@
             editPopup.style.display = 'none';
             var selectedItem = self.getSelectedItem();
             if (selectedItem) {
-                Db.updateIncome(budget.key, listView.selection.getIndices()[0], amountField.value);
+                Db.updateIncome(budget.key, listView.selection.getIndices()[0], { name: nameField.value, amount: amountField.value });
             } else {
                 Db.createIncome(budget.key, { name: nameField.value, amount: amountField.value });
             }
