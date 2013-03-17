@@ -73,6 +73,9 @@
     <Content Include="pages\groupedItems\groupedItems.html" />
     <Content Include="pages\groupedItems\groupedItems.js" />
     <Content Include="default.html" />
+    <Content Include="pages\searchResults\searchResults.css" />
+    <Content Include="pages\searchResults\searchResults.html" />
+    <Content Include="pages\searchResults\searchResults.js" />
     <None Include="MySavings_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
