@@ -103,10 +103,11 @@
             listView.selection.clear();
         },
         
-        clearData: function() {
+        clearData: function () {
+            var now = new Date();
             budgetName.value = "";
-            budgetDateFrom.winControl.current = new Date(2000, 0, 1);
-            budgetDateTo.winControl.current = new Date(2000, 0, 1);
+            budgetDateFrom.winControl.current = new Date(now.getFullYear(), now.getMonth(), 1);
+            budgetDateTo.winControl.current = new Date(now.getFullYear(), now.getMonth() + 1, 0);
             budgetAmount.value = "";
         },
 
