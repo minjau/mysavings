@@ -111,8 +111,8 @@
     padding: 15px;
 }
 
-.groupeditemspage .groupeditemslist .item .itembg h3{
-    font-size: 34px;
+.groupeditemspage .groupeditemslist .item .item-overlay h3{
+    font-size: 24px;
     color: #FFF;
     font-weight: normal;
 }
@@ -122,6 +122,7 @@
         background: #326300;
         border-top: 1px solid white;
         opacity: 0.95;
+        color: #ffffff;
     }
 
         .groupeditemspage .groupeditemslist .item .item-overlay .item-title {

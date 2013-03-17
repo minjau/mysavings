@@ -6,6 +6,18 @@ span.group-title win-type-ellipsis {
     color: #000;
 }
 
+.big {
+    font-size: 24px;
+}
+
+.darkGreen {
+    color: #125200;
+}
+
+.red {
+    color: #520000;
+}
+
 #budgetEditPopupUI .innerDiv, 
 #editPopup .innerDiv{
     height: 368px;
