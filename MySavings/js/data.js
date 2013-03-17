@@ -129,7 +129,7 @@
 
     function updateExpense(budgetKey, index, value) {
         var budget = getBudget(budgetKey);
-        var expense = budget.income.getAt(index);
+        var expense = budget.expenses.getAt(index);
         expense.name = value.name;
         expense.amount = parseFloat(value.amount);
         recalcBudget(budget);

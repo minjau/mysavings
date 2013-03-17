@@ -28,7 +28,7 @@
             document.querySelector('.pagetitle').innerHTML = budget.title;
             
             incomeHelper = MS.init(appbar.winControl,
-                listView,
+                expenseslistView,
                 newButton,
                 editButton,
                 deleteButton,
@@ -40,7 +40,7 @@
             );
 
             expensesHelper = MS.init(appbar.winControl,
-                expenseslistView,
+                listView,
                 newButton,
                 editButton,
                 deleteButton,
@@ -83,7 +83,7 @@
                 //listView.groupDataSource = null;
                 //listView.layout = new ui.ListLayout();
             } else {
-                listView.itemDataSource = budget.income.dataSource;
+                listView.itemDataSource = budget.expenses.dataSource;
                 listView.layout = new ui.GridLayout({ groupHeaderPosition: "top" });
             }
         },
@@ -94,7 +94,7 @@
                 //listView.groupDataSource = null;
                 //listView.layout = new ui.ListLayout();
             } else {
-                expenseslistView.itemDataSource = budget.expenses.dataSource;
+                expenseslistView.itemDataSource = budget.income.dataSource;
                 expenseslistView.layout = new ui.GridLayout({ groupHeaderPosition: "top" });
             }
         },
@@ -125,9 +125,9 @@
             editPopup.style.display = 'none';
             var selectedItem = self.getSelectedItem();
             if (selectedItem) {
-                Db.updateIncome(budget.key, listView.selection.getIndices()[0], { name: nameField.value, amount: amountField.value });
+                Db.updateExpense(budget.key, listView.selection.getIndices()[0], { name: nameField.value, amount: amountField.value });
             } else {
-                Db.createIncome(budget.key, { name: nameField.value, amount: amountField.value });
+                Db.createExpense(budget.key, { name: nameField.value, amount: amountField.value });
             }
             
             listView.selection.clear();
@@ -146,7 +146,7 @@
             
             var index = self.getItemIndex();
             if (index != null) {
-                Db.deleteIncome(budget.key, index);
+                Db.deleteExpense(budget.key, index);
             }
             appbar.winControl.hide();
         },
@@ -166,7 +166,7 @@
                 return null;
             }
             
-            var item = budget.income.getAt(index);
+            var item = budget.expenses.getAt(index);
             if (!item) {
                 return null;
             }
