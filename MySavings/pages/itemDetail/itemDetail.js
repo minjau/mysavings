@@ -95,17 +95,30 @@
             if (!item) {
                 return;
             }
-            //Db.deleteBudget(item.key);
+            
+            var index = self.getItemIndex();
+            if (index) {
+                Db.deleteIncome(budget.key, index);
+            }
             appbar.winControl.hide();
         },
-
-        getSelectedItem: function () {
+        
+        getItemIndex: function () {
             var index = listView.selection.getIndices();
             if (index.length == 0) {
                 return null;
             }
+
+            return index[0];
+        },
+
+        getSelectedItem: function () {
+            var index = self.getItemIndex();
+            if (index == null) {
+                return null;
+            }
             
-            var item = budget.income.getAt(index[0]);
+            var item = budget.income.getAt(index);
             if (!item) {
                 return null;
             }
