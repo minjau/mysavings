@@ -63,6 +63,35 @@
         </tbody>
     </table>
     
+    <div id="editPopup" style="opacity: 0; display:none; width: 450px; height: 400px; background-color: #78b500; position:absolute; top:400px; z-index:100; border: 1px solid #517900;">
+        <div class="innerDiv">
+            <h3>Edit</h3>
+            <table>
+                <tr>
+                    <td><label>Name</label></td>
+                    <td><input type="text" id="budgetName" /></td>
+                </tr>
+                <tr>
+                    <td><label>Date from</label></td>
+                    <td><div id="budgetDateFrom" data-win-control="WinJS.UI.DatePicker" data-win-options="{disabled:false,maxYear:2020,minYear:2001}"></div></td>
+                </tr>
+                <tr>
+                    <td><label>To</label></td>
+                    <td><div id="budgetDateTo" data-win-control="WinJS.UI.DatePicker" data-win-options="{disabled:false,maxYear:2020,minYear:2001}"></div></td>
+                </tr>
+                <tr>
+                    <td><label>Amount</label></td>
+                    <td><input type="text" id="budgetAmount" /></td>
+                </tr>
+               
+            </table>
+             <div class="dialogBar">
+                <button type="button" id="saveButton">Save</button>
+                <button type="button" id="closePopupButton">Close</button>
+            </div>
+        </div>
+    </div>
+    
     <div id="appbar" data-win-control="WinJS.UI.AppBar">
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{hidden:'true', id:'editButton', icon:'edit', label:'Edit', section:'global', type:'button'}"></button>
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{hidden:'true', id:'deleteButton', icon:'delete', label:'Delete', section:'global', type:'button'}"></button>
