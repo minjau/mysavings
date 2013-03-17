@@ -24,6 +24,11 @@
         createBudget: createBudget,
         updateBudget: updateBudget,
         deleteBudget: deleteBudget,
+        
+        createIncome: createIncome,
+        updateIncome: updateIncome,
+        deleteIncome: deleteIncome,
+
         save: save,
         load: load
     });
@@ -71,6 +76,30 @@
         save();
     }
     
+    function createIncome(budgetKey, value) {
+        var budget = getBudget(budgetKey);
+        var income = WinJS.Binding.as({
+            name: value.name,
+            amount: value.amount
+        });
+        budget.income.push(income);
+        save();
+    }
+    
+    function updateIncome(budgetKey, index, value) {
+        var budget = getBudget(budgetKey);
+        var income = budget.income.getAt(index);
+        income.name = value.name;
+        income.amount = value.amount;
+        save();
+    }
+    
+    function deleteIncome(budgetKey, index) {
+        var budget = getBudget(budgetKey);
+        budget.income.splice(index, 1);
+        save();
+    }
+
     function save() {
         var data = {
             budgets: db.budgets.map(function(value) {
