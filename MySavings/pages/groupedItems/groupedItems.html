@@ -31,8 +31,10 @@
                 <h3 data-win-bind="textContent: title"></h3>
             </div>
             <div class="item-overlay">
-                <h4 class="item-title" data-win-bind="textContent: amount"></h4>
-                <h4 class="item-title" data-win-bind="textContent: incomeSum"></h4>
+                Budget amount: <span data-win-bind="textContent: amount"></span><br />
+                Income: <span data-win-bind="textContent: incomeSum"></span><br />
+                Expenses: <span data-win-bind="textContent: expensesSum"></span><br />
+                Balance: <span data-win-bind="textContent: balance; style.color: color"></span><br />
             </div>
         </div>
     </div>
