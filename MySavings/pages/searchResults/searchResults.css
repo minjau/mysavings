@@ -59,6 +59,7 @@ h3.item-title {
 
                 .searchResults section[role=main] .filterarea .filterbar li.highlight, .searchResults section[role=main] .filterarea .filterbar li:hover {
                     opacity: 1.00;
+                    color: #000;
                 }
 
         /* Hide the <select> filter list. It will be shown in snapped mode only. */
