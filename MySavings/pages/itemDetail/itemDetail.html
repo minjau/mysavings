@@ -15,6 +15,26 @@
     <script src="/pages/itemDetail/itemDetail.js"></script>
 </head>
 <body>
+    <!-- These templates are used to display each item in the ListView declared below. -->
+    <div class="headertemplate" data-win-control="WinJS.Binding.Template">
+        <button class="group-header win-type-x-large win-type-interactive" data-win-bind="groupKey: key"
+            onclick="Application.navigator.pageControl.navigateToGroup(event.srcElement.groupKey)" role="link" tabindex="-1" type="button">
+            <span class="group-title win-type-ellipsis" data-win-bind="textContent: title"></span>
+            <span class="group-chevron"></span>
+        </button>
+    </div>
+    <div class="itemtemplate" data-win-control="WinJS.Binding.Template">
+        <div class="item">
+            <div class="itembg">
+                <h3>Pakeisti</h3>
+            </div>
+            <div class="item-overlay">
+                <h4 class="item-title" data-win-bind="textContent: name"></h4>
+                <h6 class="item-subtitle win-type-ellipsis" data-win-bind="textContent: amount"></h6>
+            </div>
+        </div>
+    </div>
+
     <!-- The content that will be loaded and displayed. -->
     <div class="itemdetailpage fragment">
         <header aria-label="Header content" role="banner">
@@ -25,30 +45,36 @@
         </header>
         <div class="content" aria-label="Main content" role="main">
             <article>
-                <div>
-                    <header>
-                        <h2 class="item-title"></h2>
-                    </header>
-                    <div class="item-content">
-                        <table>
-                            <thead>
-                                <tr>
-                                   <th>col1</th>
-                                   <th>col2</th>
-                                </tr>
-                            </thead>     
-                            <tbody id="myTableBody">
-                            </tbody>
-                        </table>                        
-                    </div>
+                <!--                <div>
+                                            <header>
+                                                <h2 class="item-title"></h2>
+                                            </header>
+                                            <div class="item-content">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>col1</th>
+                                                            <th>col2</th>
+                                                        </tr>
+                                                    </thead>     
+                                                    <tbody id="myTableBody">
+                                                    </tbody>
+                                                </table>                        
+                                            </div>
+                                        </div>-->
+
+                <div
+                    class="incomeItemsList win-selectionstylefilled"
+                    data-win-control="WinJS.UI.ListView"
+                    data-win-options="{ layout : {type: WinJS.UI.ListLayout}, selectionMode: 'single'}">
                 </div>
             </article>
         </div>
     </div>
-    
-    <table >
+
+    <table>
         <tbody id="myTemplate" data-win-control="WinJS.Binding.Template">
-            <tr >
+            <tr>
                 <td data-win-bind="innerText: name"></td>
                 <td data-win-bind="innerText: amount"></td>
                 <td></td>
