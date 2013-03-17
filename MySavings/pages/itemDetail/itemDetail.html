@@ -59,21 +59,22 @@
             <h1 class="titlearea win-type-ellipsis"></h1>
         </header>
         <div class="content" aria-label="Main content" role="main">
-            <article style="float:left">
+            <table><tr><td style="width: 50%;"> <article style="float:left; display: block"> <h2 style="color:#000">Expenses</h2>
                 <div
                     class="incomeItemsList win-selectionstylefilled"
                     data-win-control="WinJS.UI.ListView"
                     data-win-options="{ layout : {type: WinJS.UI.ListLayout}, selectionMode: 'single'}">
                 </div>
-            </article>
-            
-            <article style="float:right">
+            </article></td><td style="width: 50%;"><article style="float:right; display: block"> <h2 style="color:#000">Income</h2> 
                 <div
                     class="expensesItemsList win-selectionstylefilled"
                     data-win-control="WinJS.UI.ListView"
                     data-win-options="{ layout : {type: WinJS.UI.ListLayout}, selectionMode: 'single'}">
                 </div>
-            </article>
+            </article></td></tr></table>
+          
+            
+           
         </div>
     </div>
 
