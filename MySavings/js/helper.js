@@ -77,7 +77,8 @@
             editButton.addEventListener("click", function () { helper.showPopup(true); }, false);
             deleteButton.addEventListener("click", function () { deleteFunction(); }, false);
             closePopupButton.addEventListener("click", function () { helper.closePopup(); }, false);
-        },
-        helper: helper
+
+            return helper;
+        }
     };
 })()
