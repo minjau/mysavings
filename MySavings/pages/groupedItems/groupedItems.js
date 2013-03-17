@@ -178,8 +178,8 @@
         _initializeLayout: function (listView, viewState) {
             /// <param name="listView" value="WinJS.UI.ListView.prototype" />
             if (viewState === appViewState.snapped) {
-                listView.itemDataSource = Data.groups.dataSource;
-                listView.groupDataSource = null;
+                //listView.itemDataSource = Data.groups.dataSource;
+                //listView.groupDataSource = null;
                 listView.layout = new ui.ListLayout();
             } else {
                 listView.itemDataSource = Db.groupedBudgets.dataSource;

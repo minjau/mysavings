@@ -3,7 +3,7 @@
   <Identity Name="1234691b-d206-4211-89ae-0312475efab5" Version="1.0.0.0" Publisher="CN=adas" />
   <Properties>
     <DisplayName>MySavings</DisplayName>
-    <PublisherDisplayName>adas</PublisherDisplayName>
+    <PublisherDisplayName>KiteWorks</PublisherDisplayName>
     <Logo>images\storelogo.png</Logo>
   </Properties>
   <Prerequisites>
@@ -27,6 +27,7 @@
             </SupportedFileTypes>
           </FileTypeAssociation>
         </Extension>
+        <Extension Category="windows.search" />
       </Extensions>
     </Application>
   </Applications>
