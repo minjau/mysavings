@@ -79,10 +79,7 @@
         budget.dateFrom = value.dateFrom;
         budget.dateTo = value.dateTo;
         budget.amount = value.amount;
-        budget.incomeSum = transactionSum(budget.income);
-        budget.expensesSum = transactionSum(budget.expenses);
-        budget.balance = budget.incomeSum - budget.expensesSum;
-        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
+        recalcBudget(budget);
         save();
     }
     
@@ -99,9 +96,7 @@
             amount: value.amount
         });
         budget.income.push(income);
-        budget.incomeSum = transactionSum(budget.income);
-        budget.balance = budget.incomeSum - budget.expensesSum;
-        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
+        recalcBudget(budget);
         save();
     }
     
@@ -110,18 +105,14 @@
         var income = budget.income.getAt(index);
         income.name = value.name;
         income.amount = value.amount;
-        budget.incomeSum = transactionSum(budget.income);
-        budget.balance = budget.incomeSum - budget.expensesSum;
-        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
+        recalcBudget(budget);
         save();
     }
     
     function deleteIncome(budgetKey, index) {
         var budget = getBudget(budgetKey);
         budget.income.splice(index, 1);
-        budget.incomeSum = transactionSum(budget.income);
-        budget.balance = budget.incomeSum - budget.expensesSum;
-        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
+        recalcBudget(budget);
         save();
     }
 
@@ -132,9 +123,7 @@
             amount: value.amount
         });
         budget.expenses.push(expense);
-        budget.expensesSum = transactionSum(budget.expenses);
-        budget.balance = budget.incomeSum - budget.expensesSum;
-        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
+        recalcBudget(budget);
         save();
     }
 
@@ -143,18 +132,14 @@
         var expense = budget.income.getAt(index);
         expense.name = value.name;
         expense.amount = value.amount;
-        budget.expensesSum = transactionSum(budget.expenses);
-        budget.balance = budget.incomeSum - budget.expensesSum;
-        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
+        recalcBudget(budget);
         save();
     }
 
     function deleteExpense(budgetKey, index) {
         var budget = getBudget(budgetKey);
         budget.expenses.splice(index, 1);
-        budget.expensesSum = transactionSum(budget.expenses);
-        budget.balance = budget.incomeSum - budget.expensesSum;
-        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
+        recalcBudget(budget);
         save();
     }
 
@@ -247,6 +232,13 @@
             );
     }
 
+    function recalcBudget(budget) {
+        budget.incomeSum = transactionSum(budget.income);
+        budget.expensesSum = transactionSum(budget.expenses);
+        budget.balance = budget.amount + budget.incomeSum - budget.expensesSum;
+        budget.color = budget.balance > 0 ? positiveBudgetColor : negativeBudgetColor;
+    }
+    
     function indexOfBudgetByKey(key) {
         var index = -1;
         db.budgets.every(function (item, i) {
