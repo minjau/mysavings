@@ -235,7 +235,7 @@
     function recalcBudget(budget) {
         budget.incomeSum = transactionSum(budget.income);
         budget.expensesSum = transactionSum(budget.expenses);
-        budget.balance = budget.amount + budget.incomeSum - budget.expensesSum;
+        budget.balance = budget.amount /*+ budget.incomeSum */- budget.expensesSum;
         budget.color = budget.balance > 0 ? positiveBudgetColor : negativeBudgetColor;
     }
     
