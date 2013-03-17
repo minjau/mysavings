@@ -75,15 +75,10 @@
             WinJS.UI.Animation.hidePopup(editPopup);
             editPopup.style.opacity = 0;
             editPopup.style.display = 'none';
+            debugger;
             var selectedItem = self.getSelectedItem();
             if (selectedItem) {
-            //    Db.updateBudget({
-            //        key: selectedItem.key,
-            //        title: budgetName.value,
-            //        dateFrom: budgetDateFrom.winControl.current,
-            //        dateTo: budgetDateTo.winControl.current,
-            //        amount: budgetAmount.value
-            //    });
+                Db.updateIncome(budget.key, listView.selection.getIndices()[0], amountField.value);
             } else {
             //    Db.createBudget({
             //        title: budgetName.value,
