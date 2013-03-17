@@ -18,23 +18,22 @@
 <body>
     <!-- These templates are used to display each item in the ListView declared below. -->
     <div class="headertemplate" data-win-control="WinJS.Binding.Template">
-        <button class="group-header win-type-x-large win-type-interactive" data-win-bind="groupKey: key"
-            onclick="Application.navigator.pageControl.navigateToGroup(event.srcElement.groupKey)" role="link" tabindex="-1" type="button">
+       <!-- <button class="group-header win-type-x-large win-type-interactive" data-win-bind="groupKey: key"
+            onclick="Application.navigator.pageControl.navigateToGroup(event.srcElement.groupKey)" role="link" tabindex="-1" type="button">-->
             <span class="group-title win-type-ellipsis" data-win-bind="textContent: title"></span>
             <span class="group-chevron"></span>
-        </button>
+        <!--</button>-->
     </div>
     <div class="itemtemplate" data-win-control="WinJS.Binding.Template">
         <div class="item">
             <!--<img class="item-image" src="#" data-win-bind="src: backgroundImage; alt: title" />-->
             <div class="itembg">
-                <h3 data-win-bind="textContent: title"></h3>
+                <span class="big" data-win-bind="textContent: balance; style.color: color"></span><br/>
+                +<span class="darkGreen" data-win-bind="textContent: incomeSum"></span> / -<span class="red" data-win-bind="textContent: expensesSum"></span><br />
             </div>
             <div class="item-overlay">
-                Budget amount: <span data-win-bind="textContent: amount"></span><br />
-                Income: <span data-win-bind="textContent: incomeSum"></span><br />
-                Expenses: <span data-win-bind="textContent: expensesSum"></span><br />
-                Balance: <span data-win-bind="textContent: balance; style.color: color"></span><br />
+                <h3 data-win-bind="textContent: title; style.color: color"></h3><br/><br/>
+                Amount: <span data-win-bind="textContent: amount"></span><br />
             </div>
         </div>
     </div>
