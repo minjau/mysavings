@@ -17,7 +17,7 @@
 
     helper.addBeforeShowEventToAppBar = function() {
         appbar.addEventListener("beforeshow", function (e) {
-            e.preventDefault();
+            //e.preventDefault();
             helper.beforeShowAppBar();
         });
     },
@@ -61,7 +61,7 @@
 
     return {
         init: function (appbarInner, listViewInner, newButtonInner, editButtonInner, deleteButtonInner, closePopupButtonInner, editPopupInner, deleteFunctionInner, clearFunctionInner, fillFunctionInner) {
-            appbar = appbarInner;
+            appbar = appbarInner;          
             listView = listViewInner;
             newButton = newButtonInner;
             editButton = editButtonInner;

@@ -66,18 +66,17 @@
             if (!item) {
                 return;
             }
-            //budgetName.value = item.title;
-            //budgetDateFrom.winControl.current = new Date(item.dateFrom);
-            //budgetDateTo.winControl.current = new Date(item.dateTo);
-            //budgetAmount.value = item.amount;
+            
+            nameField.value = item.name;
+            amountField.value = item.amount;
         },
 
         save: function (el) {
-            //WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
-            //budgetEditPopupUI.style.opacity = 0;
-            //budgetEditPopupUI.style.display = 'none';
-            //var selectedItem = self.getSelectedItem();
-            //if (selectedItem) {
+            WinJS.UI.Animation.hidePopup(editPopup);
+            editPopup.style.opacity = 0;
+            editPopup.style.display = 'none';
+            var selectedItem = self.getSelectedItem();
+            if (selectedItem) {
             //    Db.updateBudget({
             //        key: selectedItem.key,
             //        title: budgetName.value,
@@ -85,23 +84,21 @@
             //        dateTo: budgetDateTo.winControl.current,
             //        amount: budgetAmount.value
             //    });
-            //} else {
+            } else {
             //    Db.createBudget({
             //        title: budgetName.value,
             //        dateFrom: budgetDateFrom.winControl.current,
             //        dateTo: budgetDateTo.winControl.current,
             //        amount: budgetAmount.value
             //    });
-            //}
+            }
             
             listView.selection.clear();
         },
 
         clearData: function () {
-            //budgetName.value = "";
-            //budgetDateFrom.winControl.current = new Date(2000, 0, 1);
-            //budgetDateTo.winControl.current = new Date(2000, 0, 1);
-            //budgetAmount.value = "";
+            nameField.value = "";
+            amountField.value = "";
         },
 
         deleteBudget: function () {
