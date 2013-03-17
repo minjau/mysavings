@@ -33,6 +33,24 @@
             </div>
         </div>
     </div>
+    
+    <div class="expenses-headertemplate" data-win-control="WinJS.Binding.Template">
+        <button class="group-header win-type-x-large win-type-interactive" data-win-bind="groupKey: key"
+            onclick="Application.navigator.pageControl.navigateToGroup(event.srcElement.groupKey)" role="link" tabindex="-1" type="button">
+            <span class="group-title win-type-ellipsis" data-win-bind="textContent: title"></span>
+            <span class="group-chevron"></span>
+        </button>
+    </div>
+    <div class="expenses-itemtemplate" data-win-control="WinJS.Binding.Template">
+        <div class="item">
+            <div class="itembg">
+                <h3 data-win-bind="textContent: name"></h3>
+            </div>
+            <div class="item-overlay">
+                <h6 class="item-subtitle win-type-ellipsis" data-win-bind="textContent: amount"></h6>
+            </div>
+        </div>
+    </div>
 
     <!-- The content that will be loaded and displayed. -->
     <div class="itemdetailpage fragment">
@@ -41,9 +59,17 @@
             <h1 class="titlearea win-type-ellipsis"></h1>
         </header>
         <div class="content" aria-label="Main content" role="main">
-            <article>
+            <article style="float:left">
                 <div
                     class="incomeItemsList win-selectionstylefilled"
+                    data-win-control="WinJS.UI.ListView"
+                    data-win-options="{ layout : {type: WinJS.UI.ListLayout}, selectionMode: 'single'}">
+                </div>
+            </article>
+            
+            <article style="float:right">
+                <div
+                    class="expensesItemsList win-selectionstylefilled"
                     data-win-control="WinJS.UI.ListView"
                     data-win-options="{ layout : {type: WinJS.UI.ListLayout}, selectionMode: 'single'}">
                 </div>

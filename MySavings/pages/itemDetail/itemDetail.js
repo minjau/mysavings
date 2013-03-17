@@ -6,9 +6,15 @@
 
     var self;
     var listView;
+    var expenseslistView;
     var budget;
     
     var ui = WinJS.UI;
+
+    var incomeHelper;
+    var expensesHelper;
+    
+    
 
     WinJS.UI.Pages.define("/pages/itemDetail/itemDetail.html", {
         // This function is called whenever a user navigates to this page. It
@@ -16,10 +22,12 @@
         ready: function (element, options) {
             self = this;
             listView = document.querySelector(".incomeItemsList").winControl;
+            expenseslistView = document.querySelector(".expensesItemsList").winControl;
+            
             budget = Db.getBudget(options.key);
             document.querySelector('h1.titlearea').innerHTML = 'My Savings: '+budget.title;
             
-            MS.init(appbar.winControl,
+            incomeHelper = MS.init(appbar.winControl,
                 listView,
                 newButton,
                 editButton,
@@ -30,15 +38,43 @@
                 this.clearData,
                 this.fillPopup
             );
-            
-            listView.itemTemplate = element.querySelector(".itemtemplate");
-            listView.groupHeaderTemplate = element.querySelector(".headertemplate");
+
+            expensesHelper = MS.init(appbar.winControl,
+                expenseslistView,
+                newButton,
+                editButton,
+                deleteButton,
+                closePopupButton,
+                editPopup,
+                this.deleteBudget,
+                this.clearData,
+                this.fillPopup
+            );
+
+            this.initIncomeList();
+            this.initExpensesList();
+
+            saveButton.addEventListener("click", this.save, false);
+        },
+
+        initIncomeList: function() {
+            listView.itemTemplate = document.querySelector(".itemtemplate");
+            listView.groupHeaderTemplate = document.querySelector(".headertemplate");
 
             self._initializeLayout(appView.value);
             listView.element.focus();
 
             listView.onselectionchanged = this.listViewSelectionChanged;
-            saveButton.addEventListener("click", this.save, false);
+        },
+        
+        initExpensesList: function() {
+            expenseslistView.itemTemplate = document.querySelector(".expenses-itemtemplate");
+            expenseslistView.groupHeaderTemplate = document.querySelector(".expenses-headertemplate");
+
+            self._initializeLayoutExpenses(appView.value);
+            expenseslistView.element.focus();
+
+            expenseslistView.onselectionchanged = this.listViewSelectionChanged;
         },
 
         _initializeLayout: function (viewState) {
@@ -52,8 +88,19 @@
             }
         },
         
+        _initializeLayoutExpenses: function (viewState) {
+            if (viewState === appViewState.snapped) {
+                //listView.itemDataSource = Data.groups.dataSource;
+                //listView.groupDataSource = null;
+                //listView.layout = new ui.ListLayout();
+            } else {
+                expenseslistView.itemDataSource = budget.expenses.dataSource;
+                expenseslistView.layout = new ui.GridLayout({ groupHeaderPosition: "top" });
+            }
+        },
+
         listViewSelectionChanged: function () {
-            MS.helper.closePopup();
+            incomeHelper.closePopup();
             var item = self.getSelectedItem();
             if (!item) {
                 return;
