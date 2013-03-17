@@ -12,6 +12,14 @@
         margin-top: 32px;
     }
 
+h3.item-title {
+    color: #FFF;
+}
+
+.win-type-ellipsis {
+    text-overflow: clip;
+}
+
 .searchResults section[role=main] {
     /* Define a grid with rows for the filters and results */
     -ms-grid-columns: 1fr;
@@ -90,6 +98,8 @@
             padding-right: 7px;
             padding-top: 1px;
             width: 280px;
+            background-color: #125200;
+            color: #FFF;
         }
 
             .searchResults section[role=main] .resultslist .item .item-image {
@@ -101,7 +111,7 @@
             }
 
             .searchResults section[role=main] .resultslist .item .item-content {
-                -ms-grid-column: 3;
+                -ms-grid-column: 1;
                 -ms-grid-row: 1;
             }
 
@@ -112,7 +122,8 @@
                 /* Define a style for both selected filters and text matching the query. */
                 .searchResults section[role=main] .resultslist .item .item-content mark {
                     background: transparent;
-                    color: rgba(90, 183, 227, 1);
+                    color: #FFF;
+                    font-weight: bold;
                 }
 
 @media screen and (-ms-view-state: snapped) {
