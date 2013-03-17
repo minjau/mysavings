@@ -7,6 +7,13 @@
     position: relative;
     width: 100%;
     z-index: 0;
+    color: #FFF;
+}
+
+.itemdetailpage .win-item {
+    width: 450px;
+    background-color: #125200;
+    padding: 10px;
 }
 
     .itemdetailpage .content article {
