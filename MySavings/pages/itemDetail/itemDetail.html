@@ -18,7 +18,7 @@
     <!-- These templates are used to display each item in the ListView declared below. -->
     <div class="headertemplate" data-win-control="WinJS.Binding.Template">
         <button class="group-header win-type-x-large win-type-interactive" data-win-bind="groupKey: key"
-            onclick="Application.navigator.pageControl.navigateToGroup(event.srcElement.groupKey)" role="link" tabindex="-1" type="button">
+                onclick="Application.navigator.pageControl.navigateToGroup(event.srcElement.groupKey)" role="link" tabindex="-1" type="button">
             <span class="group-title win-type-ellipsis" data-win-bind="textContent: title"></span>
             <span class="group-chevron"></span>
         </button>
@@ -39,7 +39,7 @@
         <header aria-label="Header content" role="banner">
             <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
             <h1 class="titlearea win-type-ellipsis">
-                <span class="pagetitle"></span>
+                My Savings: <span class="pagetitle"></span>
             </h1>
         </header>
         <div class="content" aria-label="Main content" role="main">

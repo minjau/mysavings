@@ -17,6 +17,7 @@
             self = this;
             listView = document.querySelector(".incomeItemsList").winControl;
             budget = Db.getBudget(options.key);
+            document.querySelector('.pagetitle').innerHTML = budget.title;
             
             MS.init(appbar.winControl,
                 listView,
