@@ -97,7 +97,7 @@
             }
             
             var index = self.getItemIndex();
-            if (index) {
+            if (index != null) {
                 Db.deleteIncome(budget.key, index);
             }
             appbar.winControl.hide();
