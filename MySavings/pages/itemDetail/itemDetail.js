@@ -5,7 +5,8 @@
     var appViewState = Windows.UI.ViewManagement.ApplicationViewState;
 
     var self;
-    var incomeListView;
+    var listView;
+    var budget;
     
     var ui = WinJS.UI;
 
@@ -14,99 +15,111 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             self = this;
-            incomeListView = document.querySelector(".incomeItemsList").winControl;
-            var budget = Db.getBudget(options.key);
+            listView = document.querySelector(".incomeItemsList").winControl;
+            budget = Db.getBudget(options.key);
             
-            incomeListView.itemTemplate = element.querySelector(".itemtemplate");
-            incomeListView.groupHeaderTemplate = element.querySelector(".headertemplate");
+            MS.init(appbar.winControl,
+                listView,
+                newButton,
+                editButton,
+                deleteButton,
+                closePopupButton,
+                editPopup,
+                this.deleteBudget,
+                this.clearData,
+                this.fillPopup
+            );
+            
+            listView.itemTemplate = element.querySelector(".itemtemplate");
+            listView.groupHeaderTemplate = element.querySelector(".headertemplate");
 
-            self._initializeLayout(appView.value, budget);
-            incomeListView.element.focus();
-            
-            appbar.winControl.addEventListener("beforeshow", function (e) {
-                e.preventDefault();
-                self.beforeShowAppBar();
-            });
+            self._initializeLayout(appView.value);
+            listView.element.focus();
+
+            listView.onselectionchanged = this.listViewSelectionChanged;
+            saveButton.addEventListener("click", this.save, false);
         },
 
-        _initializeLayout: function (viewState, budget) {
+        _initializeLayout: function (viewState) {
             if (viewState === appViewState.snapped) {
                 //listView.itemDataSource = Data.groups.dataSource;
                 //listView.groupDataSource = null;
                 //listView.layout = new ui.ListLayout();
             } else {
-                incomeListView.itemDataSource = budget.income.dataSource;
-                incomeListView.layout = new ui.GridLayout({ groupHeaderPosition: "top" });
+                listView.itemDataSource = budget.income.dataSource;
+                listView.layout = new ui.GridLayout({ groupHeaderPosition: "top" });
             }
         },
         
-        //listViewSelectionChanged: function () {
-        //    self.closePopup();
-        //    var item = self.getSelectedItem();
-        //    if (!item) {
-        //        return;
-        //    }
+        listViewSelectionChanged: function () {
+            MS.helper.closePopup();
+            var item = self.getSelectedItem();
+            if (!item) {
+                return;
+            }
 
-        //    appbar.winControl.show();
-        //},
+            appbar.winControl.show();
+        },
 
-        //beforeShowAppBar: function () {
-        //    var listView = document.querySelector(".incomeItemsList").winControl;
-        //    var selectedItems = listView.selection.getIndices();
-        //    if (selectedItems.length > 0) {
-        //        appbar.winControl.hideCommands(newButton.winControl, true);
-        //        appbar.winControl.showCommands(editButton.winControl, true);
-        //        appbar.winControl.showCommands(deleteButton.winControl, true);
-        //    } else {
-        //        appbar.winControl.showCommands(newButton.winControl, true);
-        //        appbar.winControl.hideCommands(editButton.winControl, true);
-        //        appbar.winControl.hideCommands(deleteButton.winControl, true);
-        //    }
-        //},
+        fillPopup: function () {
+            var item = self.getSelectedItem();
+            if (!item) {
+                return;
+            }
+            //budgetName.value = item.title;
+            //budgetDateFrom.winControl.current = new Date(item.dateFrom);
+            //budgetDateTo.winControl.current = new Date(item.dateTo);
+            //budgetAmount.value = item.amount;
+        },
 
-        //showPopup: function (prefilData) {
-        //    self.clearData();
+        save: function (el) {
+            //WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
+            //budgetEditPopupUI.style.opacity = 0;
+            //budgetEditPopupUI.style.display = 'none';
+            //var selectedItem = self.getSelectedItem();
+            //if (selectedItem) {
+            //    Db.updateBudget({
+            //        key: selectedItem.key,
+            //        title: budgetName.value,
+            //        dateFrom: budgetDateFrom.winControl.current,
+            //        dateTo: budgetDateTo.winControl.current,
+            //        amount: budgetAmount.value
+            //    });
+            //} else {
+            //    Db.createBudget({
+            //        title: budgetName.value,
+            //        dateFrom: budgetDateFrom.winControl.current,
+            //        dateTo: budgetDateTo.winControl.current,
+            //        amount: budgetAmount.value
+            //    });
+            //}
+            
+            listView.selection.clear();
+        },
 
-        //    budgetEditPopupUI.style.display = '';
-        //    var offsetX = window.outerWidth / 2 - (budgetEditPopupUI.clientWidth / 2);
-        //    var offsetY = window.outerHeight / 2 - (budgetEditPopupUI.clientHeight / 2);
-        //    budgetEditPopupUI.style.pixelLeft = offsetX;
-        //    budgetEditPopupUI.style.pixelTop = offsetY;
-        //    budgetEditPopupUI.style.opacity = "1";
-        //    if (prefilData) {
-        //        var item = self.getSelectedItem();
-        //        budgetName.value = item.title;
-        //        budgetDateFrom.winControl.current = new Date(item.dateFrom);
-        //        budgetDateTo.winControl.current = new Date(item.dateTo);
-        //        budgetAmount.value = item.amount;
-        //    }
+        clearData: function () {
+            //budgetName.value = "";
+            //budgetDateFrom.winControl.current = new Date(2000, 0, 1);
+            //budgetDateTo.winControl.current = new Date(2000, 0, 1);
+            //budgetAmount.value = "";
+        },
 
-        //    WinJS.UI.Animation.showPopup(budgetEditPopupUI, { top: "12px", left: "0px", rtlflip: true }).done(function () {
-        //        budgetEditPopupUI.setActive();
-        //    });
-        //},
+        deleteBudget: function () {
+            var item = self.getSelectedItem();
+            if (!item) {
+                return;
+            }
+            //Db.deleteBudget(item.key);
+            appbar.winControl.hide();
+        },
 
-        //clearData: function () {
-        //    budgetName.value = "";
-        //    budgetDateFrom.winControl.current = new Date(2000, 0, 1);
-        //    budgetDateTo.winControl.current = new Date(2000, 0, 1);
-        //    budgetAmount.value = "";
-        //},
-        
-        //closePopup: function () {
-        //    WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
-        //    budgetEditPopupUI.style.display = 'none';
-        //    budgetEditPopupUI.style.opacity = 0;
-        //},
+        getSelectedItem: function () {
+            var item = budget.income.getAt(listView.selection.getIndices()[0]);
+            if (!item) {
+                return null;
+            }
 
-        //getSelectedItem: function () {
-        //    var listView = document.querySelector(".groupeditemslist").winControl;
-        //    var item = Db.groupedBudgets.getAt(listView.selection.getIndices()[0]);
-        //    if (!item) {
-        //        return null;
-        //    }
-
-        //    return item;
-        //}
+            return item;            
+        }
     });
 })();
