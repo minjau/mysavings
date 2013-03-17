@@ -7,6 +7,8 @@
     var ui = WinJS.UI;
     var self;
 
+    var helper;
+
     ui.Pages.define("/pages/groupedItems/groupedItems.html", {
         // Navigates to the groupHeaderPage. Called from the groupHeaders,
         // keyboard shortcut and iteminvoked.
@@ -20,7 +22,7 @@
             self = this;
             var listView = element.querySelector(".groupeditemslist").winControl;
 
-            MS.init(appbar.winControl,
+            helper = MS.init(appbar.winControl,
                 listView,
                 newButton,
                 editButton,
@@ -57,7 +59,7 @@
         },
         
         listViewSelectionChanged: function () {
-            MS.helper.closePopup();
+            helper.closePopup();
             var item = self.getSelectedItem();
             if (!item) {
                 return;
