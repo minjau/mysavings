@@ -1,6 +1,9 @@
 ﻿(function () {
     "use strict";
 
+    var positiveBudgetColor = '#FFF';
+    var negativeBudgetColor = '#520000';
+    
     var db = {
         budgets: new WinJS.Binding.List(),
         template: new WinJS.Binding.List()
@@ -60,6 +63,7 @@
             incomeSum: 0,
             expensesSum: 0,
             balance: 0,
+            color: positiveBudgetColor,
             income: new WinJS.Binding.List(),
             expenses: new WinJS.Binding.List()
         });
@@ -75,9 +79,10 @@
         budget.dateFrom = value.dateFrom;
         budget.dateTo = value.dateTo;
         budget.amount = value.amount;
-        budget.incomeSum = transactionSum(budget.income),
-        budget.expensesSum = transactionSum(budget.expenses),
-        budget.balance = budget.incomeSum - budget.expensesSum,
+        budget.incomeSum = transactionSum(budget.income);
+        budget.expensesSum = transactionSum(budget.expenses);
+        budget.balance = budget.incomeSum - budget.expensesSum;
+        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
         save();
     }
     
@@ -94,8 +99,9 @@
             amount: value.amount
         });
         budget.income.push(income);
-        budget.incomeSum = transactionSum(budget.income),
-        budget.balance = budget.incomeSum - budget.expensesSum,
+        budget.incomeSum = transactionSum(budget.income);
+        budget.balance = budget.incomeSum - budget.expensesSum;
+        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
         save();
     }
     
@@ -104,16 +110,18 @@
         var income = budget.income.getAt(index);
         income.name = value.name;
         income.amount = value.amount;
-        budget.incomeSum = transactionSum(budget.income),
-        budget.balance = budget.incomeSum - budget.expensesSum,
+        budget.incomeSum = transactionSum(budget.income);
+        budget.balance = budget.incomeSum - budget.expensesSum;
+        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
         save();
     }
     
     function deleteIncome(budgetKey, index) {
         var budget = getBudget(budgetKey);
         budget.income.splice(index, 1);
-        budget.incomeSum = transactionSum(budget.income),
-        budget.balance = budget.incomeSum - budget.expensesSum,
+        budget.incomeSum = transactionSum(budget.income);
+        budget.balance = budget.incomeSum - budget.expensesSum;
+        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
         save();
     }
 
@@ -124,8 +132,9 @@
             amount: value.amount
         });
         budget.expenses.push(expense);
-        budget.expensesSum = transactionSum(budget.expenses),
-        budget.balance = budget.incomeSum - budget.expensesSum,
+        budget.expensesSum = transactionSum(budget.expenses);
+        budget.balance = budget.incomeSum - budget.expensesSum;
+        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
         save();
     }
 
@@ -134,16 +143,18 @@
         var expense = budget.income.getAt(index);
         expense.name = value.name;
         expense.amount = value.amount;
-        budget.expensesSum = transactionSum(budget.expenses),
-        budget.balance = budget.incomeSum - budget.expensesSum,
+        budget.expensesSum = transactionSum(budget.expenses);
+        budget.balance = budget.incomeSum - budget.expensesSum;
+        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
         save();
     }
 
     function deleteExpense(budgetKey, index) {
         var budget = getBudget(budgetKey);
         budget.expenses.splice(index, 1);
-        budget.expensesSum = transactionSum(budget.expenses),
-        budget.balance = budget.incomeSum - budget.expensesSum,
+        budget.expensesSum = transactionSum(budget.expenses);
+        budget.balance = budget.incomeSum - budget.expensesSum;
+        budget.color = (budget.amount - budget.balance) > 0 ? positiveBudgetColor : negativeBudgetColor;
         save();
     }
 
@@ -160,6 +171,7 @@
                     incomeSum: value.incomeSum,
                     expensesSum: value.expensesSum,
                     balance: value.balance,
+                    color: value.color,
                     income: value.income.map(function(item) {
                         return { key: item.key, name: item.name, amount: item.amount };
                     }),
@@ -209,7 +221,8 @@
                                 incomeSum: value.incomeSum,
                                 expensesSum: value.expensesSum,
                                 balance: value.balance,
-                                income: new WinJS.Binding.List(/*value.income*/[{ name: 'aaa', amount: 10 }, { name: 'bbb', amount: 12 }, { name: 'ccc', amount: 22.45 }].map(function (item) {
+                                color: value.color,
+                                income: new WinJS.Binding.List(value.income.map(function (item) {
                                     return WinJS.Binding.as({ name: item.name, amount: item.amount });
                                 })),
                                 expenses: new WinJS.Binding.List(value.expenses.map(function (item) {
