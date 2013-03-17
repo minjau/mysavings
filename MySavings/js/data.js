@@ -1,6 +1,9 @@
 ﻿(function () {
     "use strict";
 
+    var positiveBudgetColor = '#FFF';
+    var negativeBudgetColor = '#520000';
+    
     var db = {
         budgets: new WinJS.Binding.List(),
         template: new WinJS.Binding.List()
@@ -60,6 +63,7 @@
             incomeSum: 0,
             expensesSum: 0,
             balance: 0,
+            budgetColor: positiveBudgetColor,
             income: new WinJS.Binding.List(),
             expenses: new WinJS.Binding.List()
         });
@@ -209,7 +213,7 @@
                                 incomeSum: value.incomeSum,
                                 expensesSum: value.expensesSum,
                                 balance: value.balance,
-                                income: new WinJS.Binding.List(/*value.income*/[{ name: 'aaa', amount: 10 }, { name: 'bbb', amount: 12 }, { name: 'ccc', amount: 22.45 }].map(function (item) {
+                                income: new WinJS.Binding.List(value.income.map(function (item) {
                                     return WinJS.Binding.as({ name: item.name, amount: item.amount });
                                 })),
                                 expenses: new WinJS.Binding.List(value.expenses.map(function (item) {
