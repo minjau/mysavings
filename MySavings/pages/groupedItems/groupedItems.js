@@ -36,7 +36,7 @@
             listView.itemTemplate = element.querySelector(".itemtemplate");
             listView.oniteminvoked = this._itemInvoked.bind(this);
 
-            Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = true;
+            // Windows.ApplicationModel.Search.SearchPane.getForCurrentView().showOnKeyboardInput = true;
 
             // Set up a keyboard shortcut (ctrl + alt + g) to navigate to the
             // current group when not in snapped mode.
