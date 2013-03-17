@@ -63,7 +63,9 @@
                 return;
             }
 
-            appbar.winControl.show();
+            setImmediate(function() {
+                appbar.winControl.show();
+            });
         },
         
         fillPopup: function() {
