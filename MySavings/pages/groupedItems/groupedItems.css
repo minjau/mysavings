@@ -111,8 +111,7 @@
     padding: 15px;
 }
 
-.groupeditemspage .groupeditemslist .item .itembg h3,
-#budgetEditPopupUI .innerDiv h3 {
+.groupeditemspage .groupeditemslist .item .itembg h3{
     font-size: 34px;
     color: #FFF;
     font-weight: normal;
