@@ -122,7 +122,7 @@
             args.detail.itemPromise.done(function itemInvoked(item) {
                 // TODO: Navigate to the item that was invoked.
                 //var item = Db.groupedBudgets.getAt(args.detail.itemIndex);
-                nav.navigate("/pages/itemDetail/itemDetail.html", { key: item.key });
+                nav.navigate("/pages/itemDetail/itemDetail.html", { key: item.data.key });
             });
         },
 
