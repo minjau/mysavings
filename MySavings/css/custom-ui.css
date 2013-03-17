@@ -6,15 +6,20 @@ span.group-title win-type-ellipsis {
     color: #000;
 }
 
-#budgetEditPopupUI .innerDiv {
+#budgetEditPopupUI .innerDiv, 
+#editPopup .innerDiv{
     height: 368px;
     padding: 15px;
     border: 1px solid #fff;
     color: #FFF;
 }
 
-#budgetEditPopupUI .innerDiv h3 {
+#budgetEditPopupUI .innerDiv h3, 
+#editPopup .innerDiv h3{
     margin-bottom: 20px;
+    font-size: 34px;
+    color: #FFF;
+    font-weight: normal;
 }
 
 .win-backbutton {
