@@ -25,7 +25,7 @@
             expenseslistView = document.querySelector(".expensesItemsList").winControl;
             
             budget = Db.getBudget(options.key);
-            document.querySelector('h1.titlearea').innerHTML = 'My Savings: '+budget.title;
+            document.querySelector('h1.titlearea').innerHTML = 'My Savings: '+budget.title + ', ' + budget.year;
             
             incomeHelper = MS.init(appbar.winControl,
                 expenseslistView,
