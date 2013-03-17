@@ -19,6 +19,19 @@
         ready: function (element, options) {
             self = this;
             var listView = element.querySelector(".groupeditemslist").winControl;
+
+            MS.init(appbar.winControl,
+                listView,
+                newButton,
+                editButton,
+                deleteButton,
+                closeBudgetPopup,
+                budgetEditPopupUI,
+                this.deleteBudget,
+                this.clearData,
+                this.fillPopup
+            );
+
             listView.groupHeaderTemplate = element.querySelector(".headertemplate");
             listView.itemTemplate = element.querySelector(".itemtemplate");
             listView.oniteminvoked = this._itemInvoked.bind(this);
@@ -40,24 +53,11 @@
             listView.element.focus();
 
             listView.onselectionchanged = this.listViewSelectionChanged;
-            newButton.addEventListener("click", function() {
-                self.showPopup(false);
-            }, false);
-            editButton.addEventListener("click", function() {
-                self.showPopup(true);
-            }, false);
-            deleteButton.addEventListener("click", this.deleteBudget, false);
             saveBudget.addEventListener("click", this.saveBudget, false);
-            closeBudgetPopup.addEventListener("click", this.closeBudgetPopup, false);
-            
-            appbar.winControl.addEventListener("beforeshow", function (e) {
-                e.preventDefault();
-                self.beforeShowAppBar();
-            });
         },
         
         listViewSelectionChanged: function () {
-            self.closeBudgetPopup();
+            MS.helper.closePopup();
             var item = self.getSelectedItem();
             if (!item) {
                 return;
@@ -66,40 +66,15 @@
             appbar.winControl.show();
         },
         
-        beforeShowAppBar: function () {
-            var listView = document.querySelector(".groupeditemslist").winControl;
-            var selectedItems = listView.selection.getIndices();
-            if (selectedItems.length > 0) {
-                appbar.winControl.hideCommands(newButton.winControl, true);
-                appbar.winControl.showCommands(editButton.winControl, true);
-                appbar.winControl.showCommands(deleteButton.winControl, true);
-            } else {
-                appbar.winControl.showCommands(newButton.winControl, true);
-                appbar.winControl.hideCommands(editButton.winControl, true);
-                appbar.winControl.hideCommands(deleteButton.winControl, true);
+        fillPopup: function() {
+            var item = self.getSelectedItem();
+            if (!item) {
+                return;
             }
-        },
-
-        showPopup: function (prefilData) {
-            self.clearData();
-            
-            budgetEditPopupUI.style.display = '';
-            var offsetX = window.outerWidth / 2 - (budgetEditPopupUI.clientWidth / 2);
-            var offsetY = window.outerHeight / 2 - (budgetEditPopupUI.clientHeight / 2);
-            budgetEditPopupUI.style.pixelLeft = offsetX;
-            budgetEditPopupUI.style.pixelTop = offsetY;
-            budgetEditPopupUI.style.opacity = "1";
-            if (prefilData) {
-                var item = self.getSelectedItem();
-                budgetName.value = item.title;
-                budgetDateFrom.winControl.current = new Date(item.dateFrom);
-                budgetDateTo.winControl.current = new Date(item.dateTo);
-                budgetAmount.value = item.amount;
-            }
-
-            WinJS.UI.Animation.showPopup(budgetEditPopupUI, { top: "12px", left: "0px", rtlflip: true }).done(function() {
-                budgetEditPopupUI.setActive();
-            });
+            budgetName.value = item.title;
+            budgetDateFrom.winControl.current = new Date(item.dateFrom);
+            budgetDateTo.winControl.current = new Date(item.dateTo);
+            budgetAmount.value = item.amount;
         },
         
         saveBudget: function (el) {
@@ -142,12 +117,6 @@
             }
             Db.deleteBudget(item.key);
             appbar.winControl.hide();
-        },
-
-        closeBudgetPopup: function () {
-            WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
-            budgetEditPopupUI.style.display = 'none';
-            budgetEditPopupUI.style.opacity = 0;
         },
         
         getSelectedItem: function() {
