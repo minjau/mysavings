@@ -11,6 +11,7 @@
 
     <link href="/css/default.css" rel="stylesheet" />
     <link href="/pages/groupedItems/groupedItems.css" rel="stylesheet" />
+    <script src="/js/helper.js"></script>
     <script src="/js/data.js"></script>
     <script src="/pages/groupedItems/groupedItems.js"></script>
 </head>
@@ -26,7 +27,9 @@
     <div class="itemtemplate" data-win-control="WinJS.Binding.Template">
         <div class="item">
             <!--<img class="item-image" src="#" data-win-bind="src: backgroundImage; alt: title" />-->
-            <div class="itembg"><h3>Feb 15</h3></div>
+            <div class="itembg">
+                <h3 data-win-bind="textContent: title"></h3>
+            </div>
             <div class="item-overlay">
                 <h4 class="item-title" data-win-bind="textContent: title"></h4>
                 <h6 class="item-subtitle win-type-ellipsis" data-win-bind="textContent: key"></h6>

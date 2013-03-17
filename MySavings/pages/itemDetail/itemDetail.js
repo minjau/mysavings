@@ -17,35 +17,16 @@
             incomeListView = document.querySelector(".incomeItemsList").winControl;
             var budget = Db.getBudget(options.key);
             
-            //var pageList = this._items.createGrouped(
-            //    function groupKeySelector(item) { return group.key; },
-            //    function groupDataSelector(item) { return group; }
-            //);
-
-            //incomeListView.itemDataSource = pageList.dataSource;
             incomeListView.itemTemplate = element.querySelector(".itemtemplate");
-            //incomeListView.groupDataSource = pageList.groups.dataSource;
             incomeListView.groupHeaderTemplate = element.querySelector(".headertemplate");
-            //incomeListView.oniteminvoked = this._itemInvoked.bind(this);
 
             self._initializeLayout(appView.value, budget);
             incomeListView.element.focus();
-
-            //var tableBody = document.getElementById("myTableBody");
-            //var template = document.getElementById("myTemplate").winControl;
-            //var b = Db.getBudget(options.key);
-            //b.income.forEach(function (item) {
-            //    template.render(item, tableBody);
-            //});
-
-            //var item = options && options.item ? Data.resolveItemReference(options.item) : Data.items.getAt(0);
-            //element.querySelector(".titlearea .pagetitle").textContent = item.group.title;
-            //element.querySelector("article .item-title").textContent = budget.title;
-            //element.querySelector("article .item-subtitle").textContent = item.subtitle;
-            //element.querySelector("article .item-image").src = item.backgroundImage;
-            //element.querySelector("article .item-image").alt = item.subtitle;
-            //element.querySelector("article .item-content").innerHTML = item.content;
-            //element.querySelector(".content").focus();
+            
+            appbar.winControl.addEventListener("beforeshow", function (e) {
+                e.preventDefault();
+                self.beforeShowAppBar();
+            });
         },
 
         _initializeLayout: function (viewState, budget) {
@@ -57,6 +38,75 @@
                 incomeListView.itemDataSource = budget.income.dataSource;
                 incomeListView.layout = new ui.GridLayout({ groupHeaderPosition: "top" });
             }
-        }
+        },
+        
+        //listViewSelectionChanged: function () {
+        //    self.closePopup();
+        //    var item = self.getSelectedItem();
+        //    if (!item) {
+        //        return;
+        //    }
+
+        //    appbar.winControl.show();
+        //},
+
+        //beforeShowAppBar: function () {
+        //    var listView = document.querySelector(".incomeItemsList").winControl;
+        //    var selectedItems = listView.selection.getIndices();
+        //    if (selectedItems.length > 0) {
+        //        appbar.winControl.hideCommands(newButton.winControl, true);
+        //        appbar.winControl.showCommands(editButton.winControl, true);
+        //        appbar.winControl.showCommands(deleteButton.winControl, true);
+        //    } else {
+        //        appbar.winControl.showCommands(newButton.winControl, true);
+        //        appbar.winControl.hideCommands(editButton.winControl, true);
+        //        appbar.winControl.hideCommands(deleteButton.winControl, true);
+        //    }
+        //},
+
+        //showPopup: function (prefilData) {
+        //    self.clearData();
+
+        //    budgetEditPopupUI.style.display = '';
+        //    var offsetX = window.outerWidth / 2 - (budgetEditPopupUI.clientWidth / 2);
+        //    var offsetY = window.outerHeight / 2 - (budgetEditPopupUI.clientHeight / 2);
+        //    budgetEditPopupUI.style.pixelLeft = offsetX;
+        //    budgetEditPopupUI.style.pixelTop = offsetY;
+        //    budgetEditPopupUI.style.opacity = "1";
+        //    if (prefilData) {
+        //        var item = self.getSelectedItem();
+        //        budgetName.value = item.title;
+        //        budgetDateFrom.winControl.current = new Date(item.dateFrom);
+        //        budgetDateTo.winControl.current = new Date(item.dateTo);
+        //        budgetAmount.value = item.amount;
+        //    }
+
+        //    WinJS.UI.Animation.showPopup(budgetEditPopupUI, { top: "12px", left: "0px", rtlflip: true }).done(function () {
+        //        budgetEditPopupUI.setActive();
+        //    });
+        //},
+
+        //clearData: function () {
+        //    budgetName.value = "";
+        //    budgetDateFrom.winControl.current = new Date(2000, 0, 1);
+        //    budgetDateTo.winControl.current = new Date(2000, 0, 1);
+        //    budgetAmount.value = "";
+        //},
+        
+        //closePopup: function () {
+        //    WinJS.UI.Animation.hidePopup(budgetEditPopupUI);
+        //    budgetEditPopupUI.style.display = 'none';
+        //    budgetEditPopupUI.style.opacity = 0;
+        //},
+
+        //getSelectedItem: function () {
+        //    var listView = document.querySelector(".groupeditemslist").winControl;
+        //    var item = Db.groupedBudgets.getAt(listView.selection.getIndices()[0]);
+        //    if (!item) {
+        //        return null;
+        //    }
+
+        //    return item;
+        //}
     });
 })();
