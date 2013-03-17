@@ -20,6 +20,7 @@
         groupedBudgets: groupedBudgets,
         budgetsInTheGroups: groupedBudgets.groups,
         getBudget: getBudget,
+        findBudgets: findBudgets,
         createBudget: createBudget,
         updateBudget: updateBudget,
         deleteBudget: deleteBudget,
@@ -30,6 +31,12 @@
     function getBudget(key) {
         var index = indexOfBudgetByKey(key);
         return db.budgets.getAt(index);
+    }
+    
+    function findBudgets(queryText) {
+        return db.budgets.createFiltered(function (item) {
+            return item.title.toLowerCase().indexOf(queryText.toLowerCase()) >= 0;
+        });
     }
     
     function createBudget(value) {

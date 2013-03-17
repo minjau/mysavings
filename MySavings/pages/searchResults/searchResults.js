@@ -80,8 +80,8 @@
             this._filters.push({ results: null, text: "All", predicate: function (item) { return true; } });
 
             // TODO: Replace or remove example filters.
-            this._filters.push({ results: null, text: "Group 1", predicate: function (item) { return item.group.key === "group1"; } });
-            this._filters.push({ results: null, text: "Group 2+", predicate: function (item) { return item.group.key !== "group1"; } });
+            this._filters.push({ results: null, text: "2013", predicate: function (item) { return item.year === 2013; } });
+            this._filters.push({ results: null, text: "Older", predicate: function (item) { return item.year < 2013; } });
         },
 
         // This function executes each step required to perform a search.
@@ -121,13 +121,15 @@
         _itemInvoked: function (args) {
             args.detail.itemPromise.done(function itemInvoked(item) {
                 // TODO: Navigate to the item that was invoked.
+                //var item = Db.groupedBudgets.getAt(args.detail.itemIndex);
+                nav.navigate("/pages/itemDetail/itemDetail.html", { key: item.key });
             });
         },
 
         // This function colors the search term. Referenced in /pages/searchResults/searchResults.html
         // as part of the ListView item templates.
         _markText: function (text) {
-            return text.replace(this._lastSearch, "<mark>" + this._lastSearch + "</mark>");
+            return !text || text.replace(this._lastSearch, "<mark>" + this._lastSearch + "</mark>");
         },
 
         // This function generates the filter selection list.
@@ -170,16 +172,7 @@
         // This function populates a WinJS.Binding.List with search results for the
         // provided query.
         _searchData: function (queryText) {
-            var originalResults;
-            // TODO: Perform the appropriate search on your data.
-            if (window.Data) {
-                originalResults = Data.items.createFiltered(function (item) {
-                    return (item.title.indexOf(queryText) >= 0 || item.subtitle.indexOf(queryText) >= 0 || item.description.indexOf(queryText) >= 0);
-                });
-            } else {
-                originalResults = new WinJS.Binding.List();
-            }
-            return originalResults;
+            return Db.findBudgets(queryText);
         }
     });
 
