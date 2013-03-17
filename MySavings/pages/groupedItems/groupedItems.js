@@ -122,7 +122,7 @@
             appbar.winControl.hide();
         },
         
-        getSelectedItem: function() {
+        getSelectedItem: function () {
             var listView = document.querySelector(".groupeditemslist").winControl;
             var item = Db.groupedBudgets.getAt(listView.selection.getIndices()[0]);
             if (!item) {

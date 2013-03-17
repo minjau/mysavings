@@ -71,26 +71,15 @@
             amountField.value = item.amount;
         },
 
-        save: function (el) {
+        save: function () {
             WinJS.UI.Animation.hidePopup(editPopup);
             editPopup.style.opacity = 0;
             editPopup.style.display = 'none';
             var selectedItem = self.getSelectedItem();
             if (selectedItem) {
-            //    Db.updateBudget({
-            //        key: selectedItem.key,
-            //        title: budgetName.value,
-            //        dateFrom: budgetDateFrom.winControl.current,
-            //        dateTo: budgetDateTo.winControl.current,
-            //        amount: budgetAmount.value
-            //    });
+                Db.updateIncome(budget.key, listView.selection.getIndices()[0], amountField.value);
             } else {
-            //    Db.createBudget({
-            //        title: budgetName.value,
-            //        dateFrom: budgetDateFrom.winControl.current,
-            //        dateTo: budgetDateTo.winControl.current,
-            //        amount: budgetAmount.value
-            //    });
+                Db.createIncome(budget.key, { name: nameField.value, amount: amountField.value });
             }
             
             listView.selection.clear();
@@ -111,7 +100,12 @@
         },
 
         getSelectedItem: function () {
-            var item = budget.income.getAt(listView.selection.getIndices()[0]);
+            var index = listView.selection.getIndices();
+            if (index.length == 0) {
+                return null;
+            }
+            
+            var item = budget.income.getAt(index[0]);
             if (!item) {
                 return null;
             }
